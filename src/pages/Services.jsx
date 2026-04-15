@@ -190,7 +190,7 @@ const Services = () => {
               className="md:col-span-7"
             >
               <h2 className="text-4xl md:text-5xl font-headline italic text-primary mb-8 tracking-tighter leading-tight">
-                We design systems that improve how food businesses operate, train, and perform.
+                We design systems that determine how food businesses operate, train, and perform.
               </h2>
               <p className="text-lg text-neutral/50 font-body leading-relaxed border-l-4 border-accent pl-10 py-2">
                 Culinary Provision Group provides structured advisory focused on aligning operations, financial clarity, and workforce capability into a cohesive model.
@@ -432,7 +432,7 @@ const Services = () => {
               transition={{ delay: 0.2 }}
               className="text-lg text-neutral/50 font-body leading-relaxed italic"
             >
-              Work begins with a focused assessment to identify inefficiencies. From there, engagements expand into system design and workforce development.
+              Every engagement begins with a structured assessment. From there: system design, workforce alignment, and ongoing performance governance.
             </motion.p>
           </div>
 
@@ -539,7 +539,7 @@ const Services = () => {
                 </div>
                 
                 <p className="text-lg text-neutral/40 leading-relaxed font-body max-w-2xl">
-                  Structured training is integrated into the broader operational system. It allows businesses to standardize processes, improve consistency, and reduce operational friction, ensuring every decision is structural, not situational.
+                  Training is integrated into the operational system. Standardisation, consistency, and reduced friction are outputs—not goals. Every decision becomes structural, not situational.
                 </p>
 
                 <div className="pt-8">
@@ -564,7 +564,7 @@ const Services = () => {
             <span className="not-italic text-accent font-light">Structured Assessment.</span>
           </h2>
           <p className="text-white/40 text-lg max-w-xl mx-auto mb-12 italic font-body">
-            Every engagement begins with a clear understanding of where the business stands and where inefficiencies exist.
+            Every engagement begins with a precise map of where the business stands operationally. From there, the path is structural.
           </p>
           <Link to="/contact" className="group inline-flex items-center gap-4 bg-white text-primary px-10 py-5 rounded-full font-black uppercase tracking-widest hover:bg-accent hover:text-white transition-all duration-500 shadow-2xl">
             Request a Consultation

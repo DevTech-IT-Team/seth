@@ -1,6 +1,7 @@
 import { FiTarget, FiShield, FiBarChart, FiArrowDownRight, FiArrowRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import heroBg from '../assets/Kitchen Counter 1.jpg';
 import bentoImg1 from '../assets/Prep 2.jpg';
 import bentoImg2 from '../assets/Standards 1.jpg';
@@ -8,11 +9,34 @@ import bentoImg3 from '../assets/Meeting 1.jpg';
 import bentoImg4 from '../assets/Standards 6.jpg';
 
 const About = () => {
+  const [activeTab, setActiveTab] = useState(0);
+  const [rotatingImageIndex, setRotatingImageIndex] = useState(0);
+  const [isRotating, setIsRotating] = useState(true);
+  
+  const rotatingImages = [bentoImg1, bentoImg2, bentoImg3, bentoImg4];
+  
+  const tabs = [
+    { 
+      label: 'Advisory-focused', 
+      image: bentoImg1, 
+      text: 'Embedded alongside leadership. Defining structural goals with a clear view of operational reality.' 
+    },
+    { 
+      label: 'Systems-driven', 
+      image: bentoImg3, 
+      text: 'Results that hold are built on repeatable structure—not on repeated effort.' 
+    },
+    { 
+      label: 'Measurable Outcomes', 
+      image: bentoImg4, 
+      text: 'Engagements are measured against operational performance—not activity or effort.' 
+    }
+  ];
   return (
     <div className="flex flex-col bg-background selection:bg-accent/20">
       
       {/* 1. HERO: Sophisticated Architectural Hero */}
-      <header className="relative min-h-[100vh] flex items-center pt-32 pb-32 overflow-hidden bg-neutral-950">
+      <header className="relative min-h-[100vh] flex items-center pt-48 pb-32 overflow-hidden bg-neutral-950">
         {/* Cinematic Background Image */}
         <div className="absolute inset-0 z-0">
           <motion.img 
@@ -39,14 +63,14 @@ const About = () => {
         </div>
         
         <div className="container mx-auto px-6 md:px-12 relative z-20">
-          <div className="max-w-4xl lg:-mt-40">
+          <div className="max-w-4xl lg:-mt-20">
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               className="inline-flex items-center gap-4 mb-8"
             >
-              <span className="w-12 h-[1px] bg-accent"></span>
+              <span className="w-10 h-[1px] bg-accent"></span>
               <span className="text-accent text-[10px] uppercase font-black tracking-[0.5em]">About the Firm</span>
             </motion.div>
             
@@ -56,8 +80,9 @@ const About = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-4xl md:text-6xl lg:text-[5rem] font-headline leading-[1.2] lg:leading-[1.1] text-white mb-12 tracking-tighter italic"
             >
-              Establishing trust <br />
-              <span className="text-accent not-italic font-bold">through philosophy.</span>
+              Operational clarity <br />
+              <span className="text-accent not-italic font-bold">is the only durable foundation.</span><br />
+      
             </motion.h1>
           </div>
         </div>
@@ -69,14 +94,29 @@ const About = () => {
           transition={{ duration: 1.5, delay: 0.5 }}
           className="absolute bottom-0 right-24 w-px bg-gradient-to-t from-accent/50 to-transparent hidden md:block" 
         />
+
+        {/* Curved Shape Bottom - Subtle Wave Design */}
+        <div className="absolute bottom-0 left-0 right-0 z-40 w-full overflow-hidden leading-none">
+          <svg 
+            className="w-full h-20" 
+            viewBox="0 0 1200 80" 
+            preserveAspectRatio="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path 
+              d="M0,20 Q300,50 600,20 T1200,20 L1200,80 L0,80 Z" 
+              fill="white"
+            />
+          </svg>
+        </div>
       </header>
 
-      {/* 2. VALUES: Modern Bento Grid */}
-      <section className="py-24 bg-background relative overflow-hidden border-b border-neutral/5">
+      {/* 2. VALUES: Interactive Tabbed Interface */}
+      <section className="pt-0 pb-16 bg-white relative overflow-hidden border-b border-neutral/5">
         <div className="container mx-auto px-8 relative z-10">
           
           {/* Header Row */}
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-16">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-20">
             <div className="max-w-xl">
                <span className="text-accent text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">About us</span>
                <h2 className="text-5xl md:text-6xl font-headline text-primary tracking-tight">
@@ -85,63 +125,99 @@ const About = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl text-neutral/60 font-body text-sm leading-relaxed">
               <p>
-                Our core values support everything we do. By emphasizing long-term advisory roles and using clear frameworks, we ensure results are consistent.
+                Long-term advisory. Clear frameworks. Consistent output. These are not aspirations—they are design constraints.
               </p>
               <p>
-                We hold ourselves accountable to measurable outcomes, focusing on metrics that reflect the actual performance and health of the firm.
+                Accountability is built into the engagement structure, not added after the fact.
               </p>
             </div>
           </div>
 
-          {/* Bento Grid layout */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
-            
-            {/* Card 1: White Background (Advisory-focused) */}
-            <div className="bg-white rounded-[2rem] p-8 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-neutral/5 flex flex-col group overflow-hidden relative min-h-[400px]">
-              <div className="mb-6 z-10 relative">
-                <h3 className="text-4xl text-primary font-bold mb-2 tracking-tight">Advisory-<br/>focused</h3>
-                <p className="text-xs font-body text-neutral/60 font-medium leading-relaxed max-w-[90%]">
-                  Working closely with leadership to define structural goals and long-term vision.
-                </p>
-              </div>
-              <div className="rounded-[1.5rem] overflow-hidden mt-auto relative z-10 shadow-lg aspect-square lg:aspect-auto flex-grow -mx-2 -mb-2">
-                <img src={bentoImg1} alt="Advisory" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out" />
-              </div>
+          {/* Interactive Tab Container */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="overflow-hidden"
+          >
+            {/* Tab Navigation */}
+            <div className="grid grid-cols-3 gap-0 p-4 border-b border-primary/10">
+              {tabs.map((tab, idx) => (
+                <motion.button
+                  key={idx}
+                  onClick={() => setActiveTab(idx)}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className={`relative py-6 px-8 font-bold text-sm uppercase tracking-widest transition-all duration-300 border-b-2 ${
+                    activeTab === idx 
+                      ? 'text-accent border-accent' 
+                      : 'text-neutral/50 border-transparent hover:text-primary'
+                  }`}
+                >
+                  <span>{tab.label}</span>
+                </motion.button>
+              ))}
             </div>
 
-            {/* Card 2: Standalone Image block */}
-            <div className="rounded-[2rem] overflow-hidden aspect-[4/3] lg:aspect-auto lg:h-[70%] mt-auto shadow-lg relative group">
-               <img src={bentoImg2} alt="Standards" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out" />
-            </div>
+            {/* Tab Content - Image and Text */}
+            <div className="grid md:grid-cols-2 gap-0 py-12">
+              {/* Left: Image */}
+              <motion.div
+                key={`img-${activeTab}`}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.4 }}
+                className="relative overflow-hidden min-h-[350px] md:min-h-[450px]"
+              >
+                <img 
+                  src={tabs[activeTab].image} 
+                  alt={tabs[activeTab].label}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+              </motion.div>
 
-            {/* Card 3: Dark Background with Arrow (Systems-driven) */}
-            <div className="bg-primary rounded-[2rem] p-10 shadow-xl flex flex-col relative overflow-hidden group min-h-[400px]">
-              <FiArrowDownRight className="text-3xl text-accent/80 mb-6 group-hover:translate-x-1 group-hover:translate-y-1 transition-transform" strokeWidth={1.5} />
-              <div className="relative z-10 flex-grow">
-                <h3 className="text-4xl text-white font-bold mb-2 tracking-tight">Systems-<br/>driven</h3>
-                <p className="text-xs font-body text-white/70 leading-relaxed font-medium">
-                  Using clear frameworks to ensure that results are replicable and sustainable.
-                </p>
-              </div>
-              <div className="rounded-[1.5rem] overflow-hidden mt-6 relative shadow-lg aspect-[16/9] -mx-2 -mb-2">
-                 <img src={bentoImg3} alt="Systems" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out" />
-              </div>
-            </div>
+              {/* Right: Text Content */}
+              <motion.div
+                key={`text-${activeTab}`}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.4 }}
+                className="flex flex-col justify-center px-8 md:px-12"
+              >
+                <div className="mb-12">
+                  <span className="text-accent text-[10px] font-black uppercase tracking-[0.4em] mb-6 block">Focus Area</span>
+                  <h3 className="text-4xl md:text-5xl font-headline text-primary italic mb-8">
+                    {tabs[activeTab].label}
+                  </h3>
+                  <p className="text-lg text-neutral/70 leading-relaxed font-body border-l-4 border-accent pl-8 py-4">
+                    {tabs[activeTab].text}
+                  </p>
+                </div>
 
-            {/* Card 4: Light Gradient Base (Measurable Outcomes) */}
-            <div className="bg-gradient-to-br from-white to-[#e8f0eb] rounded-[2rem] p-8 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] flex flex-col overflow-hidden border border-primary/5 group relative min-h-[400px]">
-              <div className="mb-6 z-10 relative">
-                <h3 className="text-4xl text-primary font-bold mb-2 tracking-tight">Measurable<br/>Outcomes</h3>
-                <p className="text-xs font-body text-primary/60 font-medium leading-relaxed">
-                  Focusing on metrics that reflect the actual performance and health of the firm.
-                </p>
-              </div>
-              <div className="rounded-[1.5rem] overflow-hidden mt-auto relative shadow-lg aspect-[4/3] lg:aspect-auto flex-grow -mx-2 -mb-2">
-                 <img src={bentoImg4} alt="Measurable" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out" />
-              </div>
+                {/* Interactive Progress Indicator */}
+                <div className="space-y-4">
+                  <p className="text-xs uppercase tracking-widest text-neutral/40 font-bold">Our Focus Areas</p>
+                  <div className="flex gap-2">
+                    {tabs.map((_, idx) => (
+                      <motion.div
+                        key={idx}
+                        className={`h-2 flex-1 rounded-full transition-all duration-300 ${
+                          idx === activeTab 
+                            ? 'bg-accent' 
+                            : idx < activeTab 
+                            ? 'bg-accent/40'
+                            : 'bg-neutral/10'
+                        }`}
+                        layoutId={`progress-${idx}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
             </div>
-
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -149,9 +225,9 @@ const About = () => {
       <section className="bg-[#FBFAF8] relative overflow-hidden">
         
         {/* Curved Green Banner */}
-        <div className="bg-[#4C6444] pt-32 pb-48 rounded-bl-[10rem] relative z-10">
+        <div className="bg-[#4C6444] pt-0 pb-32 rounded-bl-[10rem] relative z-10">
           
-          <div className="container mx-auto px-8 grid lg:grid-cols-2 gap-12 items-center">
+          <div className="container mx-auto px-8 grid lg:grid-cols-2 gap-12 items-center pt-16">
             <motion.div 
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -160,7 +236,7 @@ const About = () => {
             >
                <div className="flex items-center gap-2 mb-6">
                  <span className="text-white text-lg">♥</span>
-                 <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/60">Experience Exceptional Advisory</span>
+                 <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/60">Structured Advisory. Measurable Outcomes.</span>
                </div>
                <h2 className="text-5xl md:text-7xl font-headline italic mb-8 tracking-tighter">
                  Culinary <br /> <span className="text-accent not-italic font-bold">Provision Group.</span>
@@ -170,7 +246,7 @@ const About = () => {
                    We provide structured advisory focused on aligning operations, financial clarity, and workforce capability into a cohesive model.
                  </p>
                  <p>
-                   Our approach transforms business operations into predictable, high-performing engines that run efficiently long after our engagement.
+                   The goal is not improvement. It is a business that performs consistently without dependency on the engagement.
                  </p>
                </div>
             </motion.div>
@@ -190,7 +266,7 @@ const About = () => {
         </div>
 
         {/* Lower White Area with Overlapping Card */}
-        <div className="container mx-auto px-8 relative z-20 -mt-32 pb-32">
+        <div className="container mx-auto px-8 relative z-20 -mt-32 pb-12">
           <div className="grid lg:grid-cols-12 gap-12 items-center">
             
             {/* Overlapping Diagnostic Card */}
@@ -209,13 +285,41 @@ const About = () => {
                   <span className="text-[#4C6444] text-[10px] uppercase font-black tracking-widest mb-4 block">Focus Area</span>
                   <h4 className="text-3xl font-headline italic text-primary mb-12">Systems <br/>Design</h4>
                   
-                  <div className="relative w-52 h-52 mx-auto">
-                    <div className="absolute -top-4 right-8 bg-[#4C6444] text-white p-3 rounded-full shadow-lg z-20 border-4 border-white">
-                       <FiArrowDownRight size={20} />
-                    </div>
-                    <div className="w-full h-full rounded-full overflow-hidden border-8 border-white shadow-xl relative z-10 transition-transform duration-700 hover:scale-105">
-                       <img src={bentoImg3} className="w-full h-full object-cover" alt="" />
-                    </div>
+                  <div className="relative w-64 h-64 mx-auto">
+                    {/* Rotating circular image */}
+                    <motion.div 
+                      animate={{ rotate: isRotating ? 360 : 0 }}
+                      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                      className="w-full h-full rounded-full overflow-hidden border-8 border-white shadow-2xl relative z-10"
+                    >
+                      <motion.img 
+                        key={rotatingImageIndex}
+                        src={rotatingImages[rotatingImageIndex]} 
+                        className="w-full h-full object-cover"
+                        alt="Rotating"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.5 }}
+                      />
+                    </motion.div>
+
+                    {/* Green Circle Click Button */}
+                    <motion.button
+                      onClick={() => {
+                        setRotatingImageIndex((prev) => (prev + 1) % rotatingImages.length);
+                        setIsRotating(true);
+                      }}
+                      whileHover={{ scale: 1.15 }}
+                      whileTap={{ scale: 0.9 }}
+                      className="absolute -top-3 right-2 w-16 h-16 bg-[#4C6444] text-white rounded-full shadow-lg flex items-center justify-center z-30 border-4 border-white hover:bg-accent transition-colors duration-300 cursor-pointer"
+                    >
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      >
+                        <FiArrowDownRight size={24} />
+                      </motion.div>
+                    </motion.button>
                   </div>
                </motion.div>
             </div>
@@ -229,26 +333,60 @@ const About = () => {
                >
                  <div className="flex items-center gap-3 mb-6">
                    <span className="text-[#4C6444] text-lg">♥</span>
-                   <span className="text-[12px] font-black uppercase tracking-[0.4em] text-white">We Are Committed</span>
+                   <motion.span 
+                     animate={{ letterSpacing: ["0em", "0.1em", "0em"] }}
+                     transition={{ duration: 2, repeat: Infinity }}
+                     className="text-[12px] font-black uppercase tracking-[0.4em] text-[#4C6444]"
+                   >
+                     We Are Committed
+                   </motion.span>
                  </div>
                  
                  <h3 className="text-3xl md:text-6xl font-headline italic text-primary mt-12 mb-12 tracking-tighter">
                    Our Mission Statement
                  </h3>
                  
-                 <div className="space-y-8 max-w-xl text-neutral/50 font-body text-base leading-relaxed mb-12 border-l-2 border-accent/20 pl-6 md:pl-10">
-                   <p className="italic">
-                     "The firm focuses on improving how businesses operate, train, and scale through systems, not isolated adjustments."
-                   </p>
-                   <p>
-                     By building alignment across operations, finance, and training, we ensure that every decision is structural, not situational. Our engagements leave businesses stronger and more resilient for the future.
-                   </p>
+                 {/* Content sections with animated dividers */}
+                 <div className="space-y-10 max-w-xl mb-12">
+                   {[
+                     {
+                       text: '"The firm focuses on how businesses operate, train, and scale through systems—not isolated adjustments."',
+                       highlight: true
+                     },
+                     {
+                       text: 'Alignment across operations, finance, and training means every decision has a structural basis. The engagement ends. The system does not.',
+                       highlight: false
+                     }
+                   ].map((item, idx) => (
+                     <motion.div
+                       key={idx}
+                       initial={{ opacity: 0, x: -20 }}
+                       whileInView={{ opacity: 1, x: 0 }}
+                       viewport={{ once: true }}
+                       transition={{ delay: idx * 0.2 }}
+                       className="relative pl-8 py-6 border-l-4 border-accent"
+                     >
+                       <p className={`font-body text-base leading-relaxed ${item.highlight ? 'italic text-neutral/70' : 'text-neutral/60'}`}>
+                         {item.text}
+                       </p>
+                       <motion.div
+                         animate={{ x: [0, 4, 0] }}
+                         transition={{ duration: 2, repeat: Infinity, delay: idx * 0.3 }}
+                         className="absolute -left-3 top-6 w-3 h-3 rounded-full bg-accent"
+                       />
+                     </motion.div>
+                   ))}
                  </div>
                  
-                 <Link to="/contact" className="bg-[#4C6444] text-white px-10 md:px-12 py-5 mt-10 rounded-full font-bold text-sm md:text-base uppercase tracking-widest hover:bg-primary transition-all duration-500 shadow-xl shadow-primary/20 inline-flex items-center gap-4 group">
-                   Learn More About Us 
-                   <FiArrowRight size={16} className="group-hover:translate-x-1.5 transition-transform" />
-                 </Link>
+                 <motion.div
+                   whileHover={{ x: 8 }}
+                   whileTap={{ scale: 0.95 }}
+                 >
+                   <Link to="/contact" className="bg-[#4C6444] text-white px-10 md:px-12 py-5 mt-10 rounded-full font-bold text-sm md:text-base uppercase tracking-widest hover:bg-primary transition-all duration-500 shadow-xl shadow-primary/20 inline-flex items-center gap-4 group">
+                     Learn More About Us 
+                     <FiArrowRight size={16} className="group-hover:translate-x-1.5 transition-transform" />
+                   </Link>
+                 </motion.div>
                </motion.div>
             </div>
           </div>

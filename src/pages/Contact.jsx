@@ -47,7 +47,7 @@ const Contact = () => {
           </div>
           <h2 className="text-5xl md:text-6xl font-headline italic text-primary leading-tight">Request Received.</h2>
           <p className="text-xl text-neutral/50 font-body max-w-md mx-auto">
-            We prioritize structural alignment. Our team will review your profile and reach out within 24 business hours.
+            Your profile has been received. Our team will review your operational context and follow up within 24 business hours.
           </p>
           <Link to="/" className="inline-flex items-center gap-3 text-primary font-bold uppercase tracking-widest hover:text-accent transition-colors">
             <ArrowRight className="w-4 h-4 rotate-180" /> Back to Intelligence
@@ -75,7 +75,7 @@ const Contact = () => {
               Let's define the <br /><span className="text-accent">structural path.</span>
             </span>
             <p className="text-white/80 font-body text-lg leading-relaxed max-w-xs">
-              Every engagement starts with understanding your unique operational DNA.
+              Every engagement begins with a precise read of your operational structure.
             </p>
           </div>
         </div>
@@ -220,7 +220,7 @@ const Contact = () => {
                   <div className="flex gap-4 text-primary">
                     <ShieldCheck className="w-6 h-6 shrink-0" />
                     <p className="text-sm font-body leading-relaxed opacity-70 italic">
-                      We begin with a focused, two-week strategic deep-dive into your operational structure to identify inefficiencies before designing any system.
+                      We begin with a two-week structured assessment of your operational architecture—before any design decisions are made.
                     </p>
                   </div>
                 </div>

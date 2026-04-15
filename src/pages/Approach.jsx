@@ -14,28 +14,28 @@ const Approach = () => {
     {
       num: "01",
       title: "Understand the business",
-      description: "Focused assessment to establish a clear understanding of the current state, team dynamics, and financial reality.",
+      description: "A structured review of current state: team dynamics, financial position, and operational design.",
       image: backoffice4,
       side: "right"
     },
     {
       num: "02",
       title: "Identify structural gaps",
-      description: "Pinpointing where systems are failing or where effort is being wasted on situational fixes instead of structural improvements.",
+      description: "Identifying precisely where effort substitutes for structure—and what that costs.",
       image: meeting4,
       side: "left"
     },
     {
       num: "03",
       title: "Design integrated systems",
-      description: "Creating a custom operational model that aligns systems, operations, and workforce building blocks into a cohesive whole.",
+      description: "Designing an operational model where systems, operations, and workforce are structurally aligned.",
       image: prep4,
       side: "right"
     },
     {
       num: "04",
       title: "Implement and refine",
-      description: "Translating the design into practice through structured rollout, tracking, and continuous improvement.",
+      description: "Applying the design. Tracking performance. Refining where the system requires it.",
       image: standards4,
       side: "left"
     }
@@ -120,7 +120,7 @@ const Approach = () => {
               transition={{ delay: 0.3 }}
             >
               <Link to="/contact" className="group inline-flex items-center gap-6 bg-accent text-white px-10 py-5 rounded-xl font-bold hover:bg-white hover:text-primary transition-all duration-500 shadow-3xl shadow-black/30">
-                Start moving forward
+                Begin the assessment
                 <FiArrowRight className="group-hover:translate-x-2 transition-transform" />
               </Link>
             </motion.div>
@@ -142,19 +142,19 @@ const Approach = () => {
             {[
               { 
             
-                d: "We view the business as a whole. A change in operations affects finance, which affects workforce performance. Our approach ensures alignment across all domains.",
+                d: "Operations, finance, and workforce performance are not separate functions. Changes in one propagate through all three. We design for that interdependency.",
                 icon: <FiLayers className="text-2xl" />,
                 color: "bg-primary" // Deep Green
               },
               { 
               
-                d: "We synchronize operations, finance, and training to ensure that the entire organization is moving in a consistent direction toward measurable outcomes.",
+                d: "Synchronisation is not coordination—it is defined operating logic that produces consistent, measurable output across the entire organisation.",
                 icon: <FiTarget className="text-2xl" />,
                 color: "bg-accent" // Muted Gold
               },
               { 
             
-                d: "Sustainable growth doesn't come from working harder—it comes from building better systems. We focus on redesigning the underlying structure of the business.",
+                d: "Output ceilings are structural, not motivational. We redesign the underlying architecture so performance is a design property, not a management effort.",
                 icon: <FiRefreshCw className="text-2xl" />,
                 color: "bg-neutral" // Charcoal
               }
@@ -280,7 +280,7 @@ const Approach = () => {
                 Designed for <span className="text-accent not-italic">long-term</span> capability <br />not temporary fixes.
               </h2>
               <p className="text-lg text-neutral/40 font-body leading-relaxed max-w-xl mb-10">
-                Our focus is on building internal systems that allow your business to scale performance independently. We provide the <span className="text-primary font-bold">structure</span> that generates results.
+                The outcome is internal capability: systems that scale performance without requiring ongoing external input. We provide the <span className="text-primary font-bold">structure</span> that makes that possible.
               </p>
               
               <div className="flex">

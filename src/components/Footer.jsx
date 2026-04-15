@@ -25,7 +25,7 @@ const Footer = () => {
               </div>
             </Link>
             <p className="max-w-[280px] text-[10px] md:text-[11px] uppercase tracking-[0.2em] leading-relaxed opacity-50 font-bold">
-              Establish credibility immediately <br /> and orient the user within seconds.
+              Structured advisory for food businesses. <br /> Systems, training, and operational performance.
             </p>
           </div>
           
