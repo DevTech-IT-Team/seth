@@ -193,7 +193,7 @@ const Home = () => {
                 <div className="px-6 pb-8 flex flex-col flex-grow">
                   <h3 className="text-xl font-bold text-primary mb-3 font-body tracking-tight">{item.title}</h3>
                   <p className="text-primary/60 text-xs leading-relaxed mb-8 flex-grow font-body">{item.desc}</p>
-                  <Link to="/contact" className="bg-accent text-primary w-full py-4 rounded-full font-bold text-[9px] uppercase tracking-[0.2em] hover:bg-primary hover:text-white transition-all shadow-lg shadow-accent/5 active:scale-95 text-center block">
+                  <Link to={`/domains/${item.title.toLowerCase().replace(/\s+/g, '-')}`} className="bg-accent text-primary w-full py-4 rounded-full font-bold text-[9px] uppercase tracking-[0.2em] hover:bg-primary hover:text-white transition-all shadow-lg shadow-accent/5 active:scale-95 text-center block">
                     Learn More
                   </Link>
                 </div>
