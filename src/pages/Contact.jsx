@@ -19,13 +19,16 @@ const sendEmail = async (formData) => {
         email: formData.email,
         business_name: formData.businessName,
         location: formData.location,
+        phone: formData.phone,
         business_type: formData.businessType,
         revenue_range: formData.revenueRange,
+        inquiry_type: formData.inquiryType,
         primary_challenge: formData.primaryChallenge,
         pressure_points: formData.pressurePoints.join(', '),
         current_systems: formData.currentSystems,
         readiness: formData.readiness,
         assessment_open: formData.assessmentOpen,
+        sms_consent: formData.smsConsent ? 'Yes' : 'No',
         subject: `New Lead: ${formData.businessName} (${formData.name})`,
         from_name: "CPG Contact Form"
       })
@@ -46,10 +49,10 @@ const sendEmail = async (formData) => {
 const Contact = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
-    name: '', email: '', businessName: '', location: '',
-    businessType: '', stage: '', revenueRange: '',
+    name: '', email: '', businessName: '', location: '', phone: '',
+    businessType: '', stage: '', revenueRange: '', inquiryType: '',
     primaryChallenge: '', pressurePoints: [],
-    currentSystems: '', readiness: '', assessmentOpen: ''
+    currentSystems: '', readiness: '', assessmentOpen: '', smsConsent: false
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -215,7 +218,6 @@ const Contact = () => {
       {/* RIGHT PANEL: The Form Interface */}
       <div className="lg:w-2/3 bg-white p-8 md:p-20 lg:p-32 flex flex-col justify-center">
         <form onSubmit={handleSubmit} className="max-w-2xl w-full mx-auto flex flex-col min-h-[500px]">
-          
           <div className="flex-1">
             {/* Step 1: Identity */}
             {step === 1 && (
@@ -224,6 +226,25 @@ const Contact = () => {
                   <span className="text-accent text-[10px] font-black uppercase tracking-[0.4em]">Step 01</span>
                   <h2 className="text-4xl font-headline italic text-primary leading-tight">Identify your organization.</h2>
                 </header>
+                
+                {/* Inquiry Type Dropdown */}
+                <div className="group relative">
+                  <label className="text-[10px] uppercase font-black tracking-widest text-neutral/60 group-focus-within:text-accent transition-colors">
+                    Inquiry Type (Optional)
+                  </label>
+                  <select 
+                    name="inquiryType" 
+                    value={formData.inquiryType} 
+                    onChange={handleInputChange}
+                    className="w-full text-xl text-primary bg-transparent border-b-2 border-neutral/30 py-4 outline-none focus:border-accent transition-all font-body"
+                  >
+                    <option value="">Select inquiry type</option>
+                    <option value="Consultation Inquiry">Consultation Inquiry</option>
+                    <option value="Course / Training Support">Course / Training Support</option>
+                    <option value="General Business Inquiry">General Business Inquiry</option>
+                  </select>
+                </div>
+
                 <div className="grid md:grid-cols-2 gap-x-12 gap-y-10">
                   {['name', 'email', 'businessName', 'location'].map((field) => (
                     <div key={field} className="group relative">
@@ -241,6 +262,35 @@ const Contact = () => {
                       />
                     </div>
                   ))}
+                  
+                  {/* Phone Number Field */}
+                  <div className="group relative md:col-span-2">
+                    <label className="text-[10px] uppercase font-black tracking-widest text-neutral/60 group-focus-within:text-accent transition-colors">
+                      Phone Number (Optional)
+                    </label>
+                    <input 
+                      type="tel" 
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      placeholder="Enter phone number..."
+                      className="w-full text-xl text-primary bg-transparent border-b-2 border-neutral/30 py-4 outline-none focus:border-accent transition-all font-body placeholder:text-neutral/40"
+                    />
+                  </div>
+                </div>
+
+                {/* SMS Consent Checkbox */}
+                <div className="flex items-start gap-3 pt-4">
+                  <input 
+                    type="checkbox" 
+                    name="smsConsent"
+                    checked={formData.smsConsent}
+                    onChange={(e) => setFormData(prev => ({ ...prev, smsConsent: e.target.checked }))}
+                    className="mt-1 w-4 h-4 accent-accent cursor-pointer"
+                  />
+                  <label className="text-xs text-neutral/60 leading-relaxed cursor-pointer">
+                    By checking this box, I consent to receive customer care SMS from Culinary Provision Group. Reply STOP to opt-out; Reply HELP for support; Message & data rates may apply; Messaging frequency may vary. Visit https://www.culinaryprovisiongroup.com/privacy to see our Privacy Policy and https://www.culinaryprovisiongroup.com/terms for our Terms of Service.
+                  </label>
                 </div>
               </section>
             )}
