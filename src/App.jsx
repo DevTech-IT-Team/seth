@@ -12,6 +12,10 @@ import SystemsDesign from './pages/SystemsDesign';
 import OperationsStrategy from './pages/OperationsStrategy';
 import WorkforceDevelopment from './pages/WorkforceDevelopment';
 import ImplementationSupport from './pages/ImplementationSupport';
+import Learning from './pages/Learning';
+import FoodExcellence from './pages/FoodExcellence';
+import StudentLogin from './pages/StudentLogin';
+import Technology from './pages/Technology';
 
 function App() {
   return (
@@ -24,6 +28,10 @@ function App() {
           <Route path="/approach" element={<Approach />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/learning" element={<Learning />} />
+          <Route path="/learning/food-excellence" element={<FoodExcellence />} />
+          <Route path="/student-login" element={<StudentLogin />} />
+          <Route path="/technology" element={<Technology />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsOfService />} />
           <Route path="/domains/systems-design" element={<SystemsDesign />} />

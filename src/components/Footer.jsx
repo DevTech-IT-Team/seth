@@ -29,25 +29,41 @@ const Footer = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-12 md:gap-24 w-full lg:w-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-16 w-full lg:w-auto">
+            {/* Column 1: CPG */}
             <div className="flex flex-col gap-4">
-              <h4 className="text-accent text-[10px] uppercase font-bold tracking-widest mb-2 border-b border-accent/20 pb-2">Navigation</h4>
+              <h4 className="text-accent text-[10px] uppercase font-bold tracking-widest mb-2 border-b border-accent/20 pb-2">CPG</h4>
               <ul className="text-sm opacity-70 flex flex-col gap-3 font-medium">
-                <li><Link to="/" className="hover:text-accent transition-all">Home</Link></li>
-                <li><Link to="/services" className="hover:text-accent transition-all">Services</Link></li>
-                <li><Link to="/approach" className="hover:text-accent transition-all">Approach</Link></li>
                 <li><Link to="/about" className="hover:text-accent transition-all">About</Link></li>
-              </ul>
-            </div>
-            <div className="flex flex-col gap-4">
-              <h4 className="text-accent text-[10px] uppercase font-bold tracking-widest mb-2 border-b border-accent/20 pb-2">Connect</h4>
-              <ul className="text-sm opacity-70 flex flex-col gap-3 font-medium">
-                <li><Link to="/contact" className="hover:text-accent transition-all">Contact Us</Link></li>
-                <li><Link to="/contact" className="hover:text-accent transition-all">Consultation</Link></li>
+                <li><Link to="/services" className="hover:text-accent transition-all">Business Services</Link></li>
+                <li><Link to="/learning" className="hover:text-accent transition-all">Learning & Resources</Link></li>
+                <li><Link to="/technology" className="hover:text-accent transition-all">Technology</Link></li>
+                <li><Link to="/contact" className="hover:text-accent transition-all">Contact</Link></li>
               </ul>
             </div>
 
-            <div className="flex flex-col gap-4 col-span-2 md:col-span-1">
+            {/* Column 2: For Professionals */}
+            <div className="flex flex-col gap-4">
+              <h4 className="text-accent text-[10px] uppercase font-bold tracking-widest mb-2 border-b border-accent/20 pb-2">For Professionals</h4>
+              <ul className="text-sm opacity-70 flex flex-col gap-3 font-medium">
+                <li><Link to="/learning" className="hover:text-accent transition-all">Learning</Link></li>
+                <li><a href="/learning#resources" className="hover:text-accent transition-all">Resources</a></li>
+                <li><Link to="/student-login" className="hover:text-accent transition-all">Student Login</Link></li>
+              </ul>
+            </div>
+
+            {/* Column 3: For Businesses */}
+            <div className="flex flex-col gap-4">
+              <h4 className="text-accent text-[10px] uppercase font-bold tracking-widest mb-2 border-b border-accent/20 pb-2">For Businesses</h4>
+              <ul className="text-sm opacity-70 flex flex-col gap-3 font-medium">
+                <li><Link to="/services" className="hover:text-accent transition-all">Business Services</Link></li>
+                <li><Link to="/contact?reason=business" className="hover:text-accent transition-all">Structured Assessment</Link></li>
+                <li><Link to="/contact" className="hover:text-accent transition-all">Contact</Link></li>
+              </ul>
+            </div>
+
+            {/* Column 4: Legal */}
+            <div className="flex flex-col gap-4">
               <h4 className="text-accent text-[10px] uppercase font-bold tracking-widest mb-2 border-b border-accent/20 pb-2">Legal</h4>
               <ul className="text-sm opacity-70 flex flex-col gap-3 font-medium">
                 <li><Link to="/privacy" className="hover:text-accent transition-all">Privacy Policy</Link></li>

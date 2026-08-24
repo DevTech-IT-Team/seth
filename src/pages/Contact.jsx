@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { ChevronRight, ChevronLeft, Check, ArrowRight, MessageSquare, ShieldCheck, Zap } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { ChevronRight, ChevronLeft, Check, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
-// Email submission using Formspree (free, reliable, no setup)
+// Email submission using Web3Forms
 const sendEmail = async (formData) => {
   const ACCESS_KEY = "63afdbf8-20d4-406c-b907-c6e1f4a3d39f"; // New access key for sjb@culinaryprovisiongroup.com
 
@@ -47,6 +47,7 @@ const sendEmail = async (formData) => {
 };
 
 const Contact = () => {
+  const location = useLocation();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     name: '', email: '', businessName: '', location: '', phone: '',
@@ -58,6 +59,24 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(null);
   const [validationError, setValidationError] = useState(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const reason = params.get('reason');
+    if (reason) {
+      let inquiryType = '';
+      if (reason === 'business') inquiryType = 'Business Services';
+      else if (reason === 'learning' || reason === 'professional') inquiryType = 'Learning Access';
+      else if (reason === 'support') inquiryType = 'Learner Support';
+      else if (reason === 'partnership') inquiryType = 'Partnerships';
+      else if (reason === 'media') inquiryType = 'Media';
+      else if (reason === 'other') inquiryType = 'General Inquiry';
+
+      if (inquiryType) {
+        setFormData(prev => ({ ...prev, inquiryType }));
+      }
+    }
+  }, [location.search]);
 
   const steps = 6;
   const progress = (step / steps) * 100;
@@ -110,16 +129,17 @@ const Contact = () => {
     }
   };
 
-  const handleNext = () => { 
+  const handleNext = () => {
     if (validateStep(step)) {
-      if (step < steps) setStep(step + 1); 
+      if (step < steps) setStep(step + 1);
     }
   };
 
-  const handlePrev = () => { 
+  const handlePrev = () => {
     setValidationError(null);
-    if (step > 1) setStep(step - 1); 
+    if (step > 1) setStep(step - 1);
   };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -140,10 +160,10 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
-    
+
     // Safety check: ensure we are on the final step before submission
     if (step !== steps) return;
-    
+
     // Final validation
     if (!validateStep(6)) return;
 
@@ -182,19 +202,28 @@ const Contact = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col lg:flex-row">
-      
+    <div className="min-h-screen bg-background flex flex-col lg:flex-row relative">
+
+      {/* ALWAYS VISIBLE FLOATING BACK BUTTON */}
+      <Link
+        to="/"
+        className="fixed top-6 left-6 z-50 flex items-center gap-2 bg-primary/90 backdrop-blur-md text-white px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest hover:bg-accent transition-all shadow-xl border border-white/10 group"
+      >
+        <ArrowRight className="w-3.5 h-3.5 rotate-180 transition-transform group-hover:-translate-x-1" />
+        <span>Back to Home</span>
+      </Link>
+
       {/* LEFT PANEL: Context & Progress (Sticky on Desktop) */}
-      <div className="lg:w-1/3 bg-primary p-12 lg:p-20 flex flex-col justify-between text-white relative overflow-hidden">
+      <div className="lg:w-1/3 bg-primary p-12 pt-20 lg:p-20 flex flex-col justify-between text-white relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
-          <svg width="100%" height="100%"><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="1"/></pattern><rect width="100%" height="100%" fill="url(#grid)" /></svg>
+          <svg width="100%" height="100%"><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="1" /></pattern><rect width="100%" height="100%" fill="url(#grid)" /></svg>
         </div>
 
         <div className="relative z-10">
-           <Link to="/" className=" text-[17px] font-black tracking-[0.5em] uppercase opacity-60 hover:opacity-100 transition-opacity">
+          <Link to="/" className="text-[17px] font-black tracking-[0.5em] uppercase opacity-60 hover:opacity-100 transition-opacity">
             Culinary Provision Group
-          </Link> 
-          <div className="mt-24 space-y-6">
+          </Link>
+          <div className="mt-16 lg:mt-24 space-y-6">
             <span className="text-4xl md:text-5xl font-headline italic leading-tight">
               Let's define the <br /><span className="text-accent">structural path.</span>
             </span>
@@ -216,7 +245,7 @@ const Contact = () => {
       </div>
 
       {/* RIGHT PANEL: The Form Interface */}
-      <div className="lg:w-2/3 bg-white p-8 md:p-20 lg:p-32 flex flex-col justify-center">
+      <div className="lg:w-2/3 bg-white p-8 pt-16 md:p-20 lg:p-32 flex flex-col justify-center">
         <form onSubmit={handleSubmit} className="max-w-2xl w-full mx-auto flex flex-col min-h-[500px]">
           <div className="flex-1">
             {/* Step 1: Identity */}
@@ -226,22 +255,25 @@ const Contact = () => {
                   <span className="text-accent text-[10px] font-black uppercase tracking-[0.4em]">Step 01</span>
                   <h2 className="text-4xl font-headline italic text-primary leading-tight">Identify your organization.</h2>
                 </header>
-                
+
                 {/* Inquiry Type Dropdown */}
                 <div className="group relative">
                   <label className="text-[10px] uppercase font-black tracking-widest text-neutral/60 group-focus-within:text-accent transition-colors">
                     Inquiry Type (Optional)
                   </label>
-                  <select 
-                    name="inquiryType" 
-                    value={formData.inquiryType} 
+                  <select
+                    name="inquiryType"
+                    value={formData.inquiryType}
                     onChange={handleInputChange}
                     className="w-full text-xl text-primary bg-transparent border-b-2 border-neutral/30 py-4 outline-none focus:border-accent transition-all font-body"
                   >
                     <option value="">Select inquiry type</option>
-                    <option value="Consultation Inquiry">Consultation Inquiry</option>
-                    <option value="Course / Training Support">Course / Training Support</option>
-                    <option value="General Business Inquiry">General Business Inquiry</option>
+                    <option value="Business Services">Business Services</option>
+                    <option value="Learning Access">Learning Access</option>
+                    <option value="Learner Support">Learner Support</option>
+                    <option value="Partnerships">Partnerships</option>
+                    <option value="Media">Media</option>
+                    <option value="General Inquiry">General Inquiry</option>
                   </select>
                 </div>
 
@@ -251,8 +283,8 @@ const Contact = () => {
                       <label className="text-[10px] uppercase font-black tracking-widest text-neutral/60 group-focus-within:text-accent transition-colors">
                         {field.replace(/([A-Z])/g, ' $1')}
                       </label>
-                      <input 
-                        type={field === 'email' ? 'email' : 'text'} 
+                      <input
+                        type={field === 'email' ? 'email' : 'text'}
                         name={field}
                         required
                         value={formData[field]}
@@ -262,14 +294,14 @@ const Contact = () => {
                       />
                     </div>
                   ))}
-                  
+
                   {/* Phone Number Field */}
                   <div className="group relative md:col-span-2">
                     <label className="text-[10px] uppercase font-black tracking-widest text-neutral/60 group-focus-within:text-accent transition-colors">
                       Phone Number (Optional)
                     </label>
-                    <input 
-                      type="tel" 
+                    <input
+                      type="tel"
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
@@ -281,8 +313,8 @@ const Contact = () => {
 
                 {/* SMS Consent Checkbox */}
                 <div className="flex items-start gap-3 pt-4">
-                  <input 
-                    type="checkbox" 
+                  <input
+                    type="checkbox"
                     name="smsConsent"
                     checked={formData.smsConsent}
                     onChange={(e) => setFormData(prev => ({ ...prev, smsConsent: e.target.checked }))}
@@ -305,7 +337,7 @@ const Contact = () => {
                 <div className="space-y-10">
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                     {['Restaurant', 'Café', 'Catering', 'Hospitality', 'Retail', 'Other'].map(type => (
-                      <button key={type} type="button" onClick={() => toggleOption('businessType', type)} 
+                      <button key={type} type="button" onClick={() => toggleOption('businessType', type)}
                         className={`text-[10px] p-5 font-black uppercase tracking-widest border-2 transition-all duration-300 rounded-xl
                         ${formData.businessType === type ? 'border-primary bg-primary text-white shadow-xl translate-y-[-2px]' : 'border-neutral/30 text-neutral/70 hover:border-primary hover:text-primary'}`}>
                         {type}
@@ -337,7 +369,7 @@ const Contact = () => {
                   <textarea name="primaryChallenge" value={formData.primaryChallenge} onChange={handleInputChange} rows="2" placeholder="Describe the core obstruction..." className="w-full text-2xl font-headline italic text-primary bg-transparent border-b-2 border-neutral/30 py-2 outline-none focus:border-accent transition-all resize-none placeholder:text-neutral/40" />
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {['Cost control', 'Staffing', 'Operations', 'Growth', 'Structure'].map(opt => (
-                      <button key={opt} type="button" onClick={() => toggleOption('pressurePoints', opt, true)} 
+                      <button key={opt} type="button" onClick={() => toggleOption('pressurePoints', opt, true)}
                         className={`flex items-center justify-between p-5 border-2 transition-all rounded-xl font-black uppercase tracking-widest text-[10px]
                         ${formData.pressurePoints.includes(opt) ? 'border-accent bg-accent text-white' : 'border-neutral/30 text-neutral/70 hover:border-accent'}`}>
                         {opt} {formData.pressurePoints.includes(opt) && <Check className="w-3 h-3" />}
@@ -348,7 +380,7 @@ const Contact = () => {
               </section>
             )}
 
-            {/* Steps 4 & 5 (Awareness & Readiness) - Simplified for brevity in this response */}
+            {/* Steps 4 & 5 (Awareness & Readiness) */}
             {(step === 4 || step === 5) && (
               <section className="animate-in fade-in slide-in-from-right-8 duration-500 space-y-12">
                 <header className="space-y-4">
@@ -358,14 +390,14 @@ const Contact = () => {
                   </h2>
                 </header>
                 <div className="space-y-4">
-                  {(step === 4 
-                    ? ['Yes, well-defined', 'Inconsistent', 'No formal systems'] 
+                  {(step === 4
+                    ? ['Yes, well-defined', 'Inconsistent', 'No formal systems']
                     : ['Immediately (30 days)', 'Exploring options', 'Not immediately']
                   ).map(opt => (
-                    <button 
-                      key={opt} 
-                      type="button" 
-                      onClick={() => toggleOption(step === 4 ? 'currentSystems' : 'readiness', opt)} 
+                    <button
+                      key={opt}
+                      type="button"
+                      onClick={() => toggleOption(step === 4 ? 'currentSystems' : 'readiness', opt)}
                       className={`w-full p-8 text-left border-2 rounded-2xl transition-all flex justify-between items-center group
                       ${(formData.currentSystems === opt || formData.readiness === opt) ? 'border-primary bg-primary/10' : 'border-neutral/30 hover:border-primary'}`}>
                       <span className={`font-bold uppercase tracking-widest text-xs transition-colors ${(formData.currentSystems === opt || formData.readiness === opt) ? 'text-primary' : 'text-neutral/70 group-hover:text-primary'}`}>
@@ -397,7 +429,7 @@ const Contact = () => {
                 </div>
                 <div className="grid md:grid-cols-2 gap-4">
                   {['Yes', 'Request Info'].map(opt => (
-                    <button key={opt} type="button" onClick={() => toggleOption('assessmentOpen', opt)} 
+                    <button key={opt} type="button" onClick={() => toggleOption('assessmentOpen', opt)}
                       className={`p-6 text-center border-2 transition-all rounded-2xl font-black uppercase tracking-widest text-[10px]
                       ${formData.assessmentOpen === opt ? 'border-primary bg-primary text-white' : 'border-neutral/30 text-neutral/70 hover:border-primary hover:text-primary'}`}>
                       {opt}
@@ -419,7 +451,7 @@ const Contact = () => {
           <div className="pt-20 flex items-center justify-between">
             {step > 1 ? (
               <button type="button" onClick={handlePrev} className="group flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] text-neutral/60 hover:text-primary transition-all">
-                <ChevronLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" /> Previous
+                <ChevronLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" /> Previous Step
               </button>
             ) : <div />}
 

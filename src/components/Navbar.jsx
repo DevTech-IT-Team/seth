@@ -23,16 +23,18 @@ const Navbar = () => {
   }, [location]);
 
   // Determine if we should use dark or light text based on scroll and page
-  const isDarkHero = ['/', '/services', '/approach', '/about', '/privacy', '/terms', '/domains/systems-design', '/domains/operations-strategy', '/domains/workforce-development', '/domains/implementation-support'].includes(location.pathname);
+  const isDarkHero = ['/', '/services', '/about', '/learning', '/learning/food-excellence', '/technology', '/contact', '/privacy', '/terms'].includes(location.pathname);
   const isTransparent = !isScrolled && isDarkHero && !isMenuOpen;
   
   const navTextColor = isTransparent ? 'text-white' : 'text-primary';
   const navBg = (isScrolled || isMenuOpen) ? 'bg-white/95 backdrop-blur-md shadow-lg py-4' : 'bg-transparent py-8';
 
   const menuItems = [
-    { name: 'Services', path: '/services' },
-    { name: 'Approach', path: '/approach' },
     { name: 'About', path: '/about' },
+    { name: 'Services', path: '/services' },
+    { name: 'Learning', path: '/learning' },
+    { name: 'Technology', path: '/technology' },
+    { name: 'Contact', path: '/contact' },
   ];
 
   return (
@@ -61,23 +63,32 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className={`hidden lg:flex items-center gap-10 text-[11px] font-black uppercase tracking-[0.2em] transition-colors duration-500 ${navTextColor}`}>
-            {menuItems.map((item) => (
-              <Link 
-                key={item.name} 
-                to={item.path} 
-                className="hover:text-accent transition-all pb-1 border-b border-transparent hover:border-accent"
-              >
-                {item.name}
-              </Link>
-            ))}
-            <Link to="/contact" className={`
-              border px-8 py-3 transition-all duration-500 tracking-[0.3em] font-black
-              ${isTransparent
-                ? 'border-white/40 hover:bg-white hover:text-primary hover:border-white' 
-                : 'border-primary/20 hover:bg-primary hover:text-white hover:border-primary'}
+          <div className={`hidden lg:flex items-center gap-6 text-[10px] font-black uppercase tracking-[0.15em] transition-colors duration-500 ${navTextColor}`}>
+            {menuItems.map((item) => {
+              const isActive = location.pathname === item.path;
+              return (
+                <Link 
+                  key={item.name} 
+                  to={item.path} 
+                  className={`whitespace-nowrap transition-all pb-1 border-b hover:text-accent hover:border-accent ${
+                    isActive 
+                      ? 'text-accent border-accent' 
+                      : 'border-transparent'
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
+            <Link to="/student-login" className={`
+              border px-6 py-2.5 transition-all duration-500 tracking-[0.2em] font-black whitespace-nowrap
+              ${location.pathname === '/student-login'
+                ? 'bg-accent border-accent text-primary'
+                : isTransparent
+                  ? 'border-white/40 hover:bg-white hover:text-primary hover:border-white' 
+                  : 'border-primary/20 hover:bg-primary hover:text-white hover:border-primary'}
             `}>
-              Request Consultation
+              Student Login
             </Link>
           </div>
 
@@ -98,24 +109,33 @@ const Navbar = () => {
         ${isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'}
       `}>
         <div className="flex flex-col items-center gap-10 text-center pt-32 pb-12 w-full px-8">
-          {menuItems.map((item, idx) => (
-            <Link 
-              key={item.name}
-              to={item.path}
-              onClick={() => setIsMenuOpen(false)}
-              className="text-3xl font-headline italic text-primary hover:text-accent transition-all duration-300 transform"
-              style={{ transitionDelay: `${idx * 100}ms` }}
-            >
-              <span className="block text-[10px] font-black uppercase tracking-[0.4em] text-accent mb-2 opacity-60">0{idx + 1}</span>
-              {item.name}
-            </Link>
-          ))}
+          {menuItems.map((item, idx) => {
+            const isActive = location.pathname === item.path;
+            return (
+              <Link 
+                key={item.name}
+                to={item.path}
+                onClick={() => setIsMenuOpen(false)}
+                className={`text-3xl font-headline italic transition-all duration-300 transform ${
+                  isActive ? 'text-accent' : 'text-primary hover:text-accent'
+                }`}
+                style={{ transitionDelay: `${idx * 100}ms` }}
+              >
+                <span className="block text-[10px] font-black uppercase tracking-[0.4em] text-accent mb-2 opacity-60">0{idx + 1}</span>
+                {item.name}
+              </Link>
+            );
+          })}
           <Link 
-            to="/contact" 
+            to="/student-login" 
             onClick={() => setIsMenuOpen(false)}
-            className="mt-6 bg-primary text-white w-full max-w-[280px] py-6 rounded-full font-bold uppercase tracking-widest shadow-2xl active:scale-95 transition-transform"
+            className={`mt-6 w-full max-w-[280px] py-6 rounded-full font-bold uppercase tracking-widest shadow-2xl active:scale-95 transition-transform text-center ${
+              location.pathname === '/student-login'
+                ? 'bg-accent text-primary'
+                : 'bg-primary text-white'
+            }`}
           >
-            Request Consultation
+            Student Login
           </Link>
         </div>
       </div>
