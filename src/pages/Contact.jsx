@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 // Email submission using Web3Forms
 const sendEmail = async (formData) => {
-  const ACCESS_KEY = "63afdbf8-20d4-406c-b907-c6e1f4a3d39f"; // New access key for sjb@culinaryprovisiongroup.com
+  const ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
 
   try {
     const response = await fetch('https://api.web3forms.com/submit', {
