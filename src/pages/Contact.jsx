@@ -191,7 +191,7 @@ const Contact = () => {
           </div>
           <h2 className="text-5xl md:text-6xl font-headline italic text-primary leading-tight">Request Received.</h2>
           <p className="text-xl text-neutral/50 font-body max-w-md mx-auto">
-            Your profile has been received. Our team will review your operational context and follow up based on your preference.
+            Thank you. Your inquiry has been received. We will review the information you provided and follow up using your contact details.
           </p>
           <Link to="/" className="inline-flex items-center gap-3 text-primary font-bold uppercase tracking-widest hover:text-accent transition-colors">
             <ArrowRight className="w-4 h-4 rotate-180" /> Return to CPG Home
@@ -390,8 +390,7 @@ const Contact = () => {
                   </h2>
                   {step === 4 && (
                     <p className="text-sm font-body text-neutral/70 mt-2">
-                      How would you describe your current operating procedures and systems?
-                    </p>
+                      How well defined are your current operating procedures and systems?                    </p>
                   )}
                 </header>
                 <div className="space-y-4">
@@ -433,7 +432,7 @@ const Contact = () => {
                   </div>
                 </div>
                 <div className="grid md:grid-cols-2 gap-4">
-                  {['Email', 'Phone Call'].map(opt => (
+                  {['Email me more information', 'Contact me to discuss my needs.'].map(opt => (
                     <button key={opt} type="button" onClick={() => toggleOption('assessmentOpen', opt)}
                       className={`p-6 text-center border-2 transition-all rounded-2xl font-black uppercase tracking-widest text-[10px]
                       ${formData.assessmentOpen === opt ? 'border-primary bg-primary text-white' : 'border-neutral/30 text-neutral/70 hover:border-primary hover:text-primary'}`}>
