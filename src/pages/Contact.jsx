@@ -120,7 +120,7 @@ const Contact = () => {
         return true;
       case 6:
         if (!formData.assessmentOpen) {
-          setValidationError("Please select an option for the strategic assessment.");
+          setValidationError("Please select how you would like us to follow up.");
           return false;
         }
         return true;
@@ -191,10 +191,10 @@ const Contact = () => {
           </div>
           <h2 className="text-5xl md:text-6xl font-headline italic text-primary leading-tight">Request Received.</h2>
           <p className="text-xl text-neutral/50 font-body max-w-md mx-auto">
-            Your profile has been received. Our team will review your operational context and follow up within 24 business hours.
+            Your profile has been received. Our team will review your operational context and follow up based on your preference.
           </p>
           <Link to="/" className="inline-flex items-center gap-3 text-primary font-bold uppercase tracking-widest hover:text-accent transition-colors">
-            <ArrowRight className="w-4 h-4 rotate-180" /> Back to Intelligence
+            <ArrowRight className="w-4 h-4 rotate-180" /> Return to CPG Home
           </Link>
         </div>
       </div>
@@ -388,6 +388,11 @@ const Contact = () => {
                   <h2 className="text-4xl font-headline italic text-primary leading-tight">
                     {step === 4 ? "Systems Awareness" : "Implementation Readiness"}
                   </h2>
+                  {step === 4 && (
+                    <p className="text-sm font-body text-neutral/70 mt-2">
+                      How would you describe your current operating procedures and systems?
+                    </p>
+                  )}
                 </header>
                 <div className="space-y-4">
                   {(step === 4
@@ -412,23 +417,23 @@ const Contact = () => {
               </section>
             )}
 
-            {/* Step 6: Assessment Engagement */}
+            {/* Step 6: Follow-up Preference */}
             {step === 6 && (
               <section className="animate-in fade-in slide-in-from-right-8 duration-500 space-y-12">
                 <header className="space-y-4">
                   <span className="text-accent text-[10px] font-black uppercase tracking-[0.4em]">Final Step</span>
-                  <h2 className="text-4xl font-headline italic text-primary">Strategic Alignment.</h2>
+                  <h2 className="text-4xl font-headline italic text-primary">How would you like us to follow up?</h2>
                 </header>
                 <div className="bg-neutral/5 p-8 rounded-[2rem] border border-neutral/10 space-y-4">
                   <div className="flex gap-4 text-primary">
                     <ShieldCheck className="w-6 h-6 shrink-0" />
                     <p className="text-sm font-body leading-relaxed opacity-70 italic">
-                      We begin with a two-week structured assessment of your operational architecture—before any design decisions are made.
+                      We will review your operational context to ensure strategic alignment before making any recommendations.
                     </p>
                   </div>
                 </div>
                 <div className="grid md:grid-cols-2 gap-4">
-                  {['Yes', 'Request Info'].map(opt => (
+                  {['Email', 'Phone Call'].map(opt => (
                     <button key={opt} type="button" onClick={() => toggleOption('assessmentOpen', opt)}
                       className={`p-6 text-center border-2 transition-all rounded-2xl font-black uppercase tracking-widest text-[10px]
                       ${formData.assessmentOpen === opt ? 'border-primary bg-primary text-white' : 'border-neutral/30 text-neutral/70 hover:border-primary hover:text-primary'}`}>
