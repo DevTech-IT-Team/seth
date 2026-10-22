@@ -2,25 +2,97 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-rose: #B04564;
+  --color-champagne: #F7E1D7;
+  --color-cream: #FFF8F2;
+  --color-burgundy: #6B2E3A;
+  --color-gold: #D4AF7C;
+  --color-espresso: #2E1E1E;
+  --color-body: #4A4A4A;
+  --color-muted: #7A7A7A;
+  --color-neutral: #F5F5F5;
+  --color-white: #FFFFFF;
+}
+
 @layer base {
-  body {
-    @apply bg-background text-neutral font-body;
-    -webkit-font-smoothing: antialiased;
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--color-cream);
   }
-  h1, h2, h3, h4 {
-    @apply font-headline text-primary;
+
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-espresso);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', Georgia, serif;
+    color: var(--color-burgundy);
     line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+
+  p {
+    color: var(--color-body);
+    line-height: 1.7;
+  }
+
+  ::selection {
+    background-color: rgba(176, 69, 100, 0.18);
+    color: var(--color-burgundy);
   }
 }
 
 @layer components {
-  .btn {
-    @apply inline-block px-10 py-5 font-semibold uppercase tracking-widest text-sm cursor-pointer transition-all duration-300;
-  }
+  /* Primary Action Button (Rose) */
   .btn-primary {
-    @apply bg-primary text-background hover:bg-neutral hover:-translate-y-0.5;
+    @apply inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full font-medium text-sm text-white bg-rose transition-all duration-300 shadow-md hover:bg-[#9b3b55] hover:shadow-rose hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:pointer-events-none;
   }
+
+  /* Secondary Button (Champagne / Subtle outline) */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full font-medium text-sm text-burgundy bg-champagne/70 border border-gold/40 transition-all duration-300 hover:bg-champagne hover:border-gold hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  /* Clean White Button */
+  .btn-white {
+    @apply inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full font-medium text-sm text-burgundy bg-white border border-champagne transition-all duration-300 shadow-warm-sm hover:bg-cream hover:border-gold/50 hover:shadow-warm hover:-translate-y-0.5;
+  }
+
+  /* Outline Button */
   .btn-outline {
-    @apply border border-primary text-primary hover:bg-primary hover:text-background;
+    @apply inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full font-medium text-sm text-burgundy border-2 border-burgundy/25 transition-all duration-300 hover:border-burgundy hover:bg-burgundy hover:text-white hover:-translate-y-0.5;
+  }
+
+  /* Premium Hospitality Card */
+  .card-hospitality {
+    @apply bg-white rounded-2xl border border-champagne/80 p-8 transition-all duration-300 shadow-warm-sm hover:shadow-warm hover:border-gold/50;
+  }
+
+  /* Soft Section Badge */
+  .badge-editorial {
+    @apply inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase text-burgundy bg-champagne/60 border border-gold/30;
+  }
+
+  .badge-rose {
+    @apply inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase text-rose bg-rose/10 border border-rose/20;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
   }
 }

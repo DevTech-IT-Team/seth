@@ -1,508 +1,992 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { 
   FiArrowRight, 
-  FiArrowUpRight, 
-  FiUsers, 
-  FiLayers, 
-  FiActivity, 
   FiCheckCircle, 
+  FiCompass, 
+  FiActivity, 
+  FiLayers, 
   FiBookOpen, 
   FiCpu, 
-  FiChevronRight,
-  FiAward
+  FiShare2, 
+  FiClock, 
+  FiShield, 
+  FiAward,
+  FiTrendingUp,
+  FiCheck,
+  FiSliders,
+  FiX
 } from 'react-icons/fi';
 
-import meeting3 from '../assets/Meeting 3.jpg';
-import standardsImage2 from '../assets/standards-2.jpg';
-import kitchen2 from '../assets/Kitchen Counter 2.jpg';
-import backoffice3 from '../assets/Backoffice 3.jpg';
+// Authentic Assets
+import heroImage from '../assets/restaurant-hero.jpg';
+import launchPrepImage from '../assets/launch-prep.jpg';
+import kitchenImage from '../assets/Kitchen Counter 1.jpg';
+import teamImage from '../assets/Standards 4.jpg';
+import meetingImage from '../assets/Meeting 1.jpg';
+import backstageImage from '../assets/Backoffice 1.jpg';
+import prepImage from '../assets/Prep 1.jpg';
 
 const Home = () => {
-  const navigate = useNavigate();
-  const [selectedRoute, setSelectedRoute] = useState(null);
+  // Hero interactive practice showcase state (Turnkey Launch, Margin Recovery, Backstage SOPs)
+  const [activePractice, setActivePractice] = useState(0);
 
-  const handleRouteSelection = (route) => {
-    setSelectedRoute(route);
-  };
+  // Stage state for CPG Opening Doors showcase
+  const [activeStage, setActiveStage] = useState(0);
 
-  const executeRoute = () => {
-    if (!selectedRoute) return;
-    navigate(`/contact?reason=${selectedRoute}`);
-  };
+  // Concept Estimator State
+  const [selectedConcept, setSelectedConcept] = useState('bistro');
+  const [selectedScale, setSelectedScale] = useState('medium');
 
-  const routes = [
+  const operationalPractices = [
     {
-      id: 'business',
-      title: 'I represent a hospitality business',
-      description: 'Looking to optimize operations, workforce performance, or system advisory services.',
-      actionText: 'Connect with Advisory Team'
+      id: 'launch',
+      tabLabel: 'Turnkey Launch',
+      isNew: true,
+      title: 'CPG Opening Doors',
+      category: 'Restaurant Launch Advisory',
+      tag: 'New Practice · Turnkey Launch',
+      desc: 'Guiding founders from blank canvas to first service — concept feasibility, kitchen ergonomics, and launch command.',
+      stat: '90–120 Days to Doors',
+      statDetail: '100% Launch Readiness',
+      deliverables: ['Financial Pro-Forma', 'Kitchen Line Schematic', 'Rehearsal Services'],
+      image: launchPrepImage,
+      alt: 'Restaurateur and executive chef planning kitchen blueprints',
+      link: '/services/opening-doors',
+      actionText: 'Explore Launch Advisory'
     },
     {
-      id: 'professional',
-      title: "I'm a hospitality professional",
-      description: 'Seeking practical resources, operational education, or training tools.',
-      actionText: 'Access Professional Resources'
+      id: 'tuneup',
+      tabLabel: 'Margin Recovery',
+      isNew: false,
+      title: 'Restaurant Tune-Up',
+      category: 'Operational Diagnostic & Lift',
+      tag: 'Operational Diagnostic',
+      desc: 'Restoring profitability through line rebalancing, labor scheduling control, and prime cost discipline.',
+      stat: '3%–7% Margin Lift',
+      statDetail: '28.4% Prime Cost Target',
+      deliverables: ['Prime Cost Audit', 'Table Turn Dynamics', 'Menu Margin Engineering'],
+      image: heroImage,
+      alt: 'High-volume dining room with synchronized floor flow and guest experience',
+      link: '/services/restaurant-tune-up',
+      actionText: 'Explore Tune-Up Audit'
     },
     {
-      id: 'learning',
-      title: "I'm interested in learning",
-      description: 'Enquiring about the upcoming Food Excellence in Practice guided pilot.',
-      actionText: 'Apply for Guided Pilot'
-    },
-    {
-      id: 'other',
-      title: 'I have another inquiry',
-      description: 'General questions, partnership opportunities, or media requests.',
-      actionText: 'Send General Inquiry'
+      id: 'backstage',
+      tabLabel: 'Backstage SOPs',
+      isNew: false,
+      title: 'CPG Backstage',
+      category: 'Institutional SOP Systems',
+      tag: 'Systems Architecture',
+      desc: 'Standardizing recipe yields, inventory par controls, station ergonomics, and brigade operational manuals.',
+      stat: 'Zero Ticket Stalls',
+      statDetail: 'Standardized Plate Economics',
+      deliverables: ['Master SOP Manual', 'Ingredient Yield Matrix', 'Supplier Order Guides'],
+      image: kitchenImage,
+      alt: 'Professional culinary kitchen station line ergonomics and mise en place',
+      link: '/services/cpg-backstage',
+      actionText: 'Explore Backstage Systems'
     }
   ];
 
+  const currentPractice = operationalPractices[activePractice];
+
+  const launchStages = [
+    {
+      num: '01',
+      title: 'Concept & Financial Feasibility',
+      subtitle: 'Feasibility, Lease Review & Unit Economics',
+      desc: 'We stress-test your concept against market realities. Before capital is deployed, we model check averages, seat turnover dynamics, food & labor prime targets, and break-even thresholds.',
+      deliverables: ['Pro-forma unit economic financial model', 'Menu pricing & target cost matrix', 'Lease & space feasibility audit'],
+      image: meetingImage,
+      timeframe: 'Weeks 1–4'
+    },
+    {
+      num: '02',
+      title: 'Kitchen & Line Architecture',
+      subtitle: 'Line Ergonomics, Flow Corridors & Equipment Sourcing',
+      desc: 'Great food fails if cooks collide. We map station footprints, pass-through heatlamps, walk-in par organization, and dish-pit return corridors with architects to prevent expensive rework.',
+      deliverables: ['BOH station flow schematic', 'Equipment specification & vendor bidding', 'Health department & hood compliance check'],
+      image: kitchenImage,
+      timeframe: 'Weeks 4–8'
+    },
+    {
+      num: '03',
+      title: 'Backstage Systems & Controls',
+      subtitle: 'Turnkey SOPs, Recipe Costing & POS Setup',
+      desc: 'We install the institutional controls that protect opening cash flow: recipe yield sheets, weekly par order sheets, prime supplier agreements, and complete POS programming.',
+      deliverables: ['Custom Master SOP manual', 'Ingredient yield & plate costing matrix', 'Supplier accounts & order guide setup'],
+      image: backstageImage,
+      timeframe: 'Weeks 8–12'
+    },
+    {
+      num: '04',
+      title: 'Opening Rehearsals & Launch Week',
+      subtitle: 'Staff Training, Mock Services & Floor Command',
+      desc: 'We train your front and back of house, direct simulated friends & family services to test the line under pressure, and stand shoulder-to-shoulder on the floor during launch week.',
+      deliverables: ['FOH service etiquette curriculum', 'Simulated dinner service rehearsals', 'On-floor launch week execution & 90-day stabilization'],
+      image: launchPrepImage,
+      timeframe: 'Launch & 90 Days'
+    }
+  ];
+
+  const currentStage = launchStages[activeStage];
+
+  // Estimator Calculations
+  const conceptConfigs = {
+    bistro: {
+      name: 'Chef-Driven Neighborhood Bistro',
+      targetPrime: '28.4%',
+      stations: '3 Hot Stations + Cold Garde Manger + Barista Pass',
+      pacing: '1h 45m average ticket duration',
+      rehearsal: '4 Simulated Service Dry Runs'
+    },
+    brasserie: {
+      name: 'High-Volume Modern Brasserie',
+      targetPrime: '29.1%',
+      stations: '5 Hot Stations + Raw Bar + Dedicated Expediter Rail',
+      pacing: '1h 30m dual-turn table pacing',
+      rehearsal: '6 Staged Dinner Simulations'
+    },
+    hearth: {
+      name: 'Artisanal Wood-Fired Hearth',
+      targetPrime: '27.8%',
+      stations: 'Wood Hearth Line + Sauté Station + Pastry Counter',
+      pacing: '2h 00m tasting & à la carte pacing',
+      rehearsal: '5 Live Thermal Rehearsals'
+    }
+  };
+
+  const scaleConfigs = {
+    intimate: { label: '40–60 Seats', staffEst: '14–18 Total Staff', timelineEst: '4–6 Months' },
+    medium: { label: '70–110 Seats', staffEst: '24–32 Total Staff', timelineEst: '6–9 Months' },
+    grand: { label: '120+ Seats', staffEst: '40–55 Total Staff', timelineEst: '9–12 Months' }
+  };
+
+  const activeEstimator = {
+    ...conceptConfigs[selectedConcept],
+    ...scaleConfigs[selectedScale]
+  };
+
   return (
-    <div className="flex flex-col bg-background selection:bg-accent/10 selection:text-accent overflow-x-hidden">
-      
-      {/* 1. HERO SECTION */}
-      <header
-        className="relative min-h-screen w-full flex items-center pt-32 pb-32 overflow-hidden bg-center bg-cover bg-no-repeat"
-        style={{ backgroundImage: `url("${meeting3}")` }}
-      >
-        {/* Backdrop Overlay */}
-        <div className="absolute inset-0 bg-primary/70 mix-blend-multiply z-10" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/25 to-primary/80 z-10" />
+    <div className="flex flex-col bg-[#FFF8F2] text-espresso overflow-x-hidden selection:bg-rose/15 selection:text-burgundy">
 
-        <div className="container mx-auto px-6 md:px-12 relative z-20">
-          <div className="max-w-4xl">
-            <motion.div 
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="inline-flex items-center gap-4 mb-6"
-            >
-              <span className="w-8 h-[1px] bg-accent"></span>
-              <span className="text-accent text-xs font-black uppercase tracking-[0.4em]">CPG Institution</span>
-            </motion.div>
+      {/* =========================================================================
+          HERO SECTION — HIGH-END LUXURY EDITORIAL HOSPITALITY STAGE
+          Purposeful, high-impact layout showcasing CPG's core advisory practices.
+          ========================================================================= */}
+      <section className="relative pt-4 pb-8 sm:pt-6 sm:pb-12 lg:pt-8 lg:pb-14 overflow-hidden bg-gradient-to-b from-[#FFFDF9] via-[#FAF3EB] to-[#FFF8F2]">
+        {/* Ambient atmospheric radial glows */}
+        <div className="absolute top-0 right-0 w-[550px] h-[550px] bg-gold/15 rounded-full blur-3xl pointer-events-none -mr-32" />
+        <div className="absolute bottom-0 left-0 w-[450px] h-[450px] bg-rose/10 rounded-full blur-3xl pointer-events-none -ml-32" />
 
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-3xl md:text-5xl lg:text-[4.5rem] mb-8 leading-[1.15] tracking-tight font-headline text-white"
-            >
-              Strengthening Hospitality <br />
-              <span className="text-accent font-light italic opacity-95">Through People, Systems & Technology</span>
-            </motion.h1>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-7 lg:gap-8 xl:gap-12 items-center">
+            
+            {/* Left Column: Brand Thesis & High-Impact CTAs */}
+            <div className="lg:col-span-7 space-y-3.5 sm:space-y-4">
+              
+              {/* Sleek Announcement Pill */}
+              <div>
+                <Link
+                  to="/services/opening-doors"
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-gold/50 text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-burgundy shadow-sm hover:border-gold hover:shadow-warm transition-all group"
+                >
+                  <span className="w-2 h-2 rounded-full bg-rose animate-pulse" />
+                  <span className="text-rose font-bold">New Practice:</span>
+                  <span>CPG Opening Doors — Restaurant Launch Advisory</span>
+                  <FiArrowRight className="w-3.5 h-3.5 text-rose group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-lg md:text-xl text-white/80 max-w-2xl mb-12 font-body leading-relaxed font-light"
-            >
-              A premium hospitality advisory and learning institution. We design and integrate professional resources, operational frameworks, and technology preparedness structures for businesses and professionals.
-            </motion.p>
+              {/* Main Authority Headline for CPG — High-Impact Editorial Rhythm */}
+              <h1 className="text-3xl sm:text-4xl lg:text-[2.85rem] xl:text-[3.35rem] font-headline font-normal text-burgundy leading-[1.12] tracking-tight">
+                Operational Mastery Behind{' '}
+                <span className="italic font-normal text-rose underline decoration-gold/50 decoration-1 underline-offset-8">
+                  Extraordinary Dining.
+                </span>
+              </h1>
 
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="flex flex-col sm:flex-row gap-6"
-            >
-              <a 
-                href="#services" 
-                className="bg-accent text-primary flex items-center justify-center gap-4 px-8 py-5 rounded-full text-base font-bold hover:bg-white transition-all duration-300 group shadow-lg"
-              >
-                Explore Business Services
-                <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
-              </a>
-              <a 
-                href="#learning" 
-                className="bg-transparent border border-white/30 text-white flex items-center justify-center gap-4 px-8 py-5 rounded-full text-base font-bold hover:bg-white/10 transition-all duration-300"
-              >
-                Explore Learning & Resources
-              </a>
-            </motion.div>
-          </div>
-        </div>
+              {/* Tagline / Positioning Statement */}
+              <p className="text-xs sm:text-sm font-headline italic text-rose font-normal border-l-2 border-gold pl-3.5 py-0.5">
+                “Hospitality is an art. Running an enduring restaurant is an operational science.”
+              </p>
 
-        {/* WHITE WAVE DIVIDER */}
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20">
-          <svg className="relative block w-full h-[150px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.83C50.3,115.6,117,117.81,173.19,103,235.15,86.67,263.39,64.25,321.39,56.44Z" fill="#F4F1EA"></path>
-          </svg>
-        </div>
-      </header>
+              {/* Supporting Editorial Description */}
+              <p className="text-xs sm:text-sm text-body font-light leading-relaxed max-w-xl">
+                Culinary Provision Group partners with independent restaurateurs, executive chefs, and hospitality brands to engineer resilient operations—from turnkey new restaurant launches to institutional backstage systems and margin optimization.
+              </p>
 
-      {/* 2. WHAT CPG IS SECTION */}
-      <section className="py-24 md:py-32 bg-background border-b border-primary/5 relative overflow-hidden">
-        <div className="container mx-auto px-6 md:px-12">
-          <div className="max-w-5xl mx-auto">
-            <div className="inline-flex items-center gap-4 mb-8">
-              <span className="w-10 h-[1px] bg-accent"></span>
-              <span className="text-accent text-xs font-black uppercase tracking-[0.4em]">The Core Narrative</span>
+              {/* Core CTAs */}
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
+                <a
+                  href="#services"
+                  className="btn-primary py-3 px-6 text-xs sm:text-sm group shadow-warm hover:shadow-warm-lg"
+                >
+                  <span>Explore Advisory Services</span>
+                  <FiArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </a>
+
+                <Link
+                  to="/services/opening-doors"
+                  className="btn-secondary py-3 px-6 text-xs sm:text-sm group flex items-center justify-center gap-2"
+                >
+                  <FiCompass className="w-4 h-4 text-rose" />
+                  <span>Launch a Restaurant (Opening Doors)</span>
+                </Link>
+              </div>
+
+              {/* Trust Metrics Bar */}
+              <div className="pt-4 border-t border-champagne/80 grid grid-cols-3 gap-3 text-xs">
+                <div className="p-2.5 rounded-xl bg-white/60 border border-champagne/80">
+                  <span className="block font-headline font-bold text-burgundy text-xs sm:text-sm">Turnkey Launches</span>
+                  <span className="text-muted font-light leading-tight block text-[11px] mt-0.5">Concept to First Service</span>
+                </div>
+                <div className="p-2.5 rounded-xl bg-white/60 border border-champagne/80">
+                  <span className="block font-headline font-bold text-burgundy text-xs sm:text-sm">Margin Recovery</span>
+                  <span className="text-muted font-light leading-tight block text-[11px] mt-0.5">3%–7% Controllable Lift</span>
+                </div>
+                <div className="p-2.5 rounded-xl bg-white/60 border border-champagne/80">
+                  <span className="block font-headline font-bold text-burgundy text-xs sm:text-sm">SOP Systems</span>
+                  <span className="text-muted font-light leading-tight block text-[11px] mt-0.5">Institutional Stability</span>
+                </div>
+              </div>
+
             </div>
 
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-headline text-primary mb-12 leading-[1.15] tracking-tight">
-              An institution dedicated to <span className="italic font-light">operational longevity</span> and workforce performance.
+            {/* Right Column: Purpose-Driven CPG Practice Showcase */}
+            <div className="lg:col-span-5 relative">
+              <div className="bg-white/95 backdrop-blur-xl rounded-3xl p-3.5 sm:p-4 border-2 border-gold/40 shadow-2xl shadow-burgundy/10 transition-all">
+                
+                {/* Micro-Header: Purpose Explanation */}
+                <div className="flex items-center justify-between px-1 mb-2.5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#8F6B38]">
+                  <span>Core Advisory Practices</span>
+                  <span className="text-rose flex items-center gap-1 font-semibold">
+                    <span className="w-1.5 h-1.5 rounded-full bg-rose animate-pulse" />
+                    Live Solutions
+                  </span>
+                </div>
+
+                {/* 3 Practice Switcher Tabs: Turnkey Launch | Margin Recovery | Backstage SOPs */}
+                <div className="grid grid-cols-3 gap-1.5 p-1 bg-[#FAF4ED] rounded-xl mb-3 border border-champagne">
+                  {operationalPractices.map((practice, pIdx) => {
+                    const isSelected = activePractice === pIdx;
+                    return (
+                      <button
+                        key={practice.id}
+                        type="button"
+                        onClick={() => setActivePractice(pIdx)}
+                        className={`py-2 px-2 rounded-lg text-[10px] sm:text-xs font-semibold tracking-wide transition-all relative flex items-center justify-center gap-1.5 ${
+                          isSelected
+                            ? 'bg-burgundy text-white shadow-md'
+                            : 'text-espresso/75 hover:text-burgundy hover:bg-white/60'
+                        }`}
+                      >
+                        <span className="whitespace-nowrap">{practice.tabLabel}</span>
+                        {practice.isNew && (
+                          <span className={`text-[8px] font-bold uppercase px-1 py-0.2 rounded-full ${
+                            isSelected ? 'bg-rose text-white' : 'bg-rose/15 text-rose'
+                          }`}>
+                            New
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Active Practice Cinematic Window */}
+                <div className="relative rounded-2xl overflow-hidden shadow-md border border-champagne/80 bg-espresso">
+                  <img
+                    src={currentPractice.image}
+                    alt={currentPractice.alt}
+                    className="w-full h-[250px] sm:h-[280px] lg:h-[300px] object-cover object-center transition-all duration-500 hover:scale-105"
+                  />
+                  
+                  {/* Subtle Top Floating Pill */}
+                  <div className="absolute top-3 left-3 bg-burgundy/90 backdrop-blur-md text-white text-[9px] font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-gold/40 shadow-sm flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+                    <span>{currentPractice.tag}</span>
+                  </div>
+
+                  {/* Floating Bottom Live KPI Bar */}
+                  <div className="absolute bottom-2.5 left-2.5 right-2.5 bg-espresso/90 backdrop-blur-md rounded-xl p-2.5 border border-gold/30 text-white flex items-center justify-between gap-2 shadow-lg">
+                    <div>
+                      <span className="text-[10px] uppercase tracking-wider text-gold font-bold block">
+                        {currentPractice.stat}
+                      </span>
+                      <span className="text-[10px] text-champagne/80 font-light block">
+                        {currentPractice.statDetail}
+                      </span>
+                    </div>
+
+                    <Link
+                      to={currentPractice.link}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gold hover:bg-white text-burgundy text-[10px] font-bold uppercase tracking-wider transition-colors shrink-0"
+                    >
+                      <span>Explore</span>
+                      <FiArrowRight className="w-3 h-3" />
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Card Drawer: Practice Description & Concrete Deliverables */}
+                <div className="mt-3 px-1 pt-2 border-t border-champagne/70 space-y-2">
+                  <div className="flex items-center justify-between gap-2">
+                    <h3 className="font-headline font-bold text-burgundy text-sm sm:text-base">
+                      {currentPractice.title}
+                    </h3>
+                    <span className="text-[10px] text-muted font-medium uppercase tracking-wider">
+                      {currentPractice.category}
+                    </span>
+                  </div>
+
+                  <p className="text-xs text-body font-light leading-relaxed">
+                    {currentPractice.desc}
+                  </p>
+
+                  {/* Deliverable Tags */}
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {currentPractice.deliverables.map((del, dIdx) => (
+                      <span 
+                        key={dIdx}
+                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#FAF4ED] border border-champagne text-[10px] font-medium text-espresso/80"
+                      >
+                        <FiCheck className="w-2.5 h-2.5 text-rose shrink-0" />
+                        <span>{del}</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          GRAND NEW SERVICE ANNOUNCEMENT: CPG OPENING DOORS
+          (Dedicated, impressive feature announcing the new restaurant launch service)
+          ========================================================================= */}
+      <section className="py-20 md:py-32 bg-[#1A1214] text-cream relative overflow-hidden border-y border-gold/30">
+        {/* Ambient Warm Luxury Glows */}
+        <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-rose/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-10 w-[500px] h-[500px] bg-gold/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 relative z-10">
+          
+          {/* Announcement Header */}
+          <div className="max-w-3xl mx-auto text-center space-y-4 mb-16 md:mb-20">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-gold/40 text-xs font-semibold uppercase tracking-[0.2em] text-champagne">
+              <FiCompass className="w-3.5 h-3.5 text-gold" />
+              <span>New Practice Announcement</span>
+            </div>
+            
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline text-white leading-tight">
+              Introducing <span className="italic font-normal text-champagne">CPG Opening Doors.</span>
             </h2>
+            
+            <p className="font-headline text-xl text-champagne/90 font-light italic">
+              Turnkey Restaurant Launch Advisory: From Concept Blueprint to Opening Night Command.
+            </p>
 
-            <div className="grid md:grid-cols-2 gap-12 text-primary/80 font-body text-lg md:text-xl leading-relaxed font-light">
-              <p className="border-l-4 border-accent/40 pl-6 py-2">
-                CPG operates at the intersection of business performance, professional development, and technology preparedness. We reject the premise that operational inconsistency is merely a training problem. Inconsistency is a systems problem. Structure scales; unassisted effort does not.
-              </p>
-              <p className="flex flex-col justify-center">
-                By equipping both growing hospitality businesses and professional culinarians with custom-designed operational frameworks, practical education, and structural tools, we ensure food systems are built to withstand modern pressures.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. TWO AUDIENCE PATHWAYS */}
-      <section className="py-24 bg-white relative">
-        <div className="container mx-auto px-6 md:px-12">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-accent text-xs font-black uppercase tracking-[0.4em] mb-4 block">Co-Primary Pathways</span>
-            <h2 className="text-3xl md:text-5xl font-headline text-primary">Tailored for Industry Needs</h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {/* Pathway 1: Professionals */}
-            <div className="relative group overflow-hidden rounded-3xl shadow-xl h-[450px] md:h-[500px]">
-              <div 
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                style={{ backgroundImage: `url("${standardsImage2}")` }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-black/20 z-10" />
-              
-              <div className="absolute inset-0 z-20 p-8 md:p-12 flex flex-col justify-end items-start text-white">
-                <span className="text-accent text-xs font-black uppercase tracking-[0.3em] mb-3">For Individuals</span>
-                <h3 className="text-2xl md:text-3xl font-headline mb-4">Hospitality Professionals</h3>
-                <p className="text-sm md:text-base text-white/80 mb-8 max-w-md font-body leading-relaxed font-light">
-                  Practical education, workforce resources, and structured operational training designed to build your technical competence and advance your professional trajectory.
-                </p>
-                <a 
-                  href="#learning" 
-                  className="bg-white text-primary px-6 py-3 rounded-full text-sm font-bold flex items-center gap-2 hover:bg-accent hover:text-primary transition-all duration-300"
-                >
-                  Explore Learning Options
-                  <FiArrowRight />
-                </a>
-              </div>
-            </div>
-
-            {/* Pathway 2: Businesses */}
-            <div className="relative group overflow-hidden rounded-3xl shadow-xl h-[450px] md:h-[500px]">
-              <div 
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                style={{ backgroundImage: `url("${kitchen2}")` }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-black/20 z-10" />
-              
-              <div className="absolute inset-0 z-20 p-8 md:p-12 flex flex-col justify-end items-start text-white">
-                <span className="text-accent text-xs font-black uppercase tracking-[0.3em] mb-3">For Organizations</span>
-                <h3 className="text-2xl md:text-3xl font-headline mb-4">Hospitality Businesses</h3>
-                <p className="text-sm md:text-base text-white/80 mb-8 max-w-md font-body leading-relaxed font-light">
-                  Custom advisory, operational tools, labor models, and structural frameworks designed to align your workforce and maximize unit-level performance.
-                </p>
-                <a 
-                  href="#services" 
-                  className="bg-white text-primary px-6 py-3 rounded-full text-sm font-bold flex items-center gap-2 hover:bg-accent hover:text-primary transition-all duration-300"
-                >
-                  Explore Business Services
-                  <FiArrowRight />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. BUSINESS SERVICES */}
-      <section id="services" className="py-24 md:py-32 bg-background border-t border-b border-primary/5">
-        <div className="container mx-auto px-6 md:px-12">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
-            <div className="max-w-xl">
-              <span className="text-accent text-xs font-black uppercase tracking-[0.4em] mb-4 block">Institutional Advisory</span>
-              <h2 className="text-3xl md:text-5xl font-headline text-primary">Business Services</h2>
-            </div>
-            <p className="text-primary/75 max-w-md font-body text-base leading-relaxed font-light">
-              We design robust operational processes that embed structure directly into your daily practices. Clear frameworks. Consistent output. Stable labor structures.
+            <p className="text-base sm:text-lg text-white/80 font-light leading-relaxed max-w-2xl mx-auto">
+              Opening a restaurant involves hundreds of interdependent operational decisions. Most failures happen before the doors ever open—due to flawed line geometry, runaway pre-opening spending, or chaotic opening-week staffing. CPG Opening Doors is our comprehensive new advisory service built to guide founders from blank canvas to packed dining room.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                icon: <FiLayers className="text-accent text-3xl" />,
-                title: 'Systems Advisory',
-                subtitle: 'Structural Level',
-                description: 'Clarifying operational performance through modeling, cost structure analysis, and process design.'
-              },
-              {
-                icon: <FiActivity className="text-accent text-3xl" />,
-                title: 'Operational Optimization',
-                subtitle: 'Day-to-Day Execution',
-                description: 'Improving efficiency through labor alignment models, deep-dive workflow analysis, and cost controls.'
-              },
-              {
-                icon: <FiUsers className="text-accent text-3xl" />,
-                title: 'Workforce Development',
-                subtitle: 'Internal Capability',
-                description: 'Building internal capacity through structured training frameworks and custom education programs.'
-              },
-              {
-                icon: <FiCheckCircle className="text-accent text-3xl" />,
-                title: 'Implementation',
-                subtitle: 'Systems in Practice',
-                description: 'Translating concepts into execution with rollout management, performance tracking, and support.'
-              }
-            ].map((service, idx) => (
-              <div 
-                key={idx} 
-                className="bg-white p-8 rounded-2xl border border-primary/5 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between group"
-              >
-                <div>
-                  <div className="mb-6">{service.icon}</div>
-                  <span className="text-[10px] uppercase tracking-widest text-primary/45 font-bold block mb-2">{service.subtitle}</span>
-                  <h3 className="text-xl font-headline text-primary mb-4 font-bold">{service.title}</h3>
-                  <p className="text-sm text-primary/70 font-body leading-relaxed font-light">{service.description}</p>
+          {/* 4-Stage Interactive Showcase Container */}
+          <div className="bg-white/5 backdrop-blur-xl rounded-3xl p-6 sm:p-10 md:p-12 border border-white/10 shadow-2xl">
+            
+            {/* Stage Selector Tabs */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10 pb-6 border-b border-white/10">
+              {launchStages.map((stage, idx) => {
+                const isActive = activeStage === idx;
+                return (
+                  <button
+                    key={stage.num}
+                    type="button"
+                    onClick={() => setActiveStage(idx)}
+                    className={`text-left p-4 rounded-2xl transition-all duration-300 flex flex-col justify-between ${
+                      isActive
+                        ? 'bg-champagne text-burgundy shadow-warm scale-[1.02]'
+                        : 'bg-white/5 hover:bg-white/10 border border-white/10 text-white'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <span className={`text-xs font-bold uppercase tracking-wider ${
+                        isActive ? 'text-burgundy' : 'text-gold'
+                      }`}>
+                        Stage {stage.num}
+                      </span>
+                      <span className={`text-[10px] ${isActive ? 'text-burgundy/70' : 'text-white/60'}`}>
+                        {stage.timeframe}
+                      </span>
+                    </div>
+                    <span className={`font-headline font-semibold text-sm line-clamp-2 ${
+                      isActive ? 'text-burgundy' : 'text-white'
+                    }`}>
+                      {stage.title}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Active Stage Details */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              
+              {/* Left Column: Narrative & Deliverables */}
+              <div className="lg:col-span-7 space-y-6">
+                <div className="inline-block text-xs font-semibold uppercase tracking-wider text-gold bg-gold/15 border border-gold/30 px-3 py-1 rounded-full">
+                  Stage {currentStage.num} · {currentStage.timeframe}
                 </div>
-                <div className="mt-8 pt-4 border-t border-primary/5">
-                  <Link to="/services" className="text-xs uppercase tracking-widest font-black text-accent flex items-center gap-2 group-hover:text-primary transition-colors">
-                    Learn More <FiChevronRight />
+
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-headline font-semibold text-white">
+                  {currentStage.title}
+                </h3>
+
+                <p className="font-headline italic text-base text-champagne font-light">
+                  {currentStage.subtitle}
+                </p>
+
+                <p className="text-base text-white/80 font-light leading-relaxed">
+                  {currentStage.desc}
+                </p>
+
+                <div className="space-y-3 pt-2">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-champagne">
+                    Tangible Operational Deliverables:
+                  </p>
+                  <ul className="space-y-2.5">
+                    {currentStage.deliverables.map((item, dIdx) => (
+                      <li key={dIdx} className="flex items-start gap-3 text-sm text-white/90 font-light">
+                        <FiCheckCircle className="w-4 h-4 text-gold shrink-0 mt-0.5" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                  <Link
+                    to="/services/opening-doors"
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-sm text-burgundy bg-champagne hover:bg-white transition-all duration-300 shadow-md hover:-translate-y-0.5"
+                  >
+                    <span>Explore CPG Opening Doors</span>
+                    <FiArrowRight className="w-4 h-4" />
+                  </Link>
+
+                  <Link
+                    to="/contact?interest=CPG Opening Doors"
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-medium text-sm text-white border border-white/30 hover:bg-white/10 transition-all duration-300"
+                  >
+                    <span>Inquire About Launch Advisory</span>
                   </Link>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* 5. LEARNING & RESOURCES */}
-      <section id="learning" className="py-24 md:py-32 bg-primary text-white relative overflow-hidden">
-        {/* Decorative subtle texture */}
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none select-none">
-          <svg width="100%" height="100%">
-            <pattern id="grid-pattern-learning" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="1"/>
-            </pattern>
-            <rect width="100%" height="100%" fill="url(#grid-pattern-learning)" />
-          </svg>
-        </div>
-
-        <div className="container mx-auto px-6 md:px-12 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 items-center">
-            
-            {/* Left: Info */}
-            <div className="lg:col-span-7">
-              <div className="flex flex-wrap items-center gap-4 mb-6">
-                <span className="text-accent text-xs font-black uppercase tracking-[0.4em]">Educational Offerings</span>
-                <span className="bg-accent/20 border border-accent/40 text-accent text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">
-                  Guided Pilot — Opening Soon
-                </span>
-              </div>
-
-              <h2 className="text-4xl md:text-5xl font-headline mb-8 text-white">Food Excellence in Practice</h2>
-              
-              <p className="text-base md:text-lg text-white/80 font-body leading-relaxed mb-8 font-light">
-                An institutional education program built specifically for professional culinarians and food service leaders. This is not a generic, self-paced course marketplace. It is a structured, rigorous curriculum focused on kitchen economics, food safety architecture, and operational leadership.
-              </p>
-
-              <div className="space-y-4 mb-10">
-                <div className="flex items-start gap-4">
-                  <FiAward className="text-accent text-xl mt-1 shrink-0" />
-                  <p className="text-sm text-white/95 font-body font-light">
-                    <strong>Rigorous Standards:</strong> Practical, high-fidelity instructional materials matching modern commercial requirements.
-                  </p>
-                </div>
-                <div className="flex items-start gap-4">
-                  <FiBookOpen className="text-accent text-xl mt-1 shrink-0" />
-                  <p className="text-sm text-white/95 font-body font-light">
-                    <strong>Systems Focus:</strong> Designed around scalable operational frameworks and organizational structures rather than personal recipes.
-                  </p>
-                </div>
-              </div>
-
-              <a 
-                href="#routing-section"
-                className="inline-flex bg-accent text-primary px-8 py-4 rounded-full font-bold hover:bg-white hover:text-primary transition-all duration-300"
-              >
-                Inquire About Guided Pilot
-              </a>
-            </div>
-
-            {/* Right: Graphic Card (Not looking like checkout) */}
-            <div className="lg:col-span-5 bg-white/5 backdrop-blur-md p-8 md:p-10 rounded-3xl border border-white/10">
-              <span className="text-accent text-xs font-black uppercase tracking-widest block mb-4">Curriculum Framework</span>
-              <h4 className="text-xl font-headline mb-6 text-white italic">Program Focus Areas</h4>
-              <ul className="space-y-4 text-sm text-white/85 font-body">
-                <li className="flex justify-between py-2 border-b border-white/10">
-                  <span>Kitchen Systems Design</span>
-                  <span className="text-accent font-bold">Module I</span>
-                </li>
-                <li className="flex justify-between py-2 border-b border-white/10">
-                  <span>Workforce Integration Models</span>
-                  <span className="text-accent font-bold">Module II</span>
-                </li>
-                <li className="flex justify-between py-2 border-b border-white/10">
-                  <span>Technology & Inventory Controls</span>
-                  <span className="text-accent font-bold">Module III</span>
-                </li>
-                <li className="flex justify-between py-2">
-                  <span>Operational Leadership Ethics</span>
-                  <span className="text-accent font-bold">Module IV</span>
-                </li>
-              </ul>
-              <div className="mt-8 p-4 bg-white/10 rounded-xl text-center">
-                <p className="text-xs text-white/60">Currently open only for institutional invitees and select pilot operators.</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* 6. TECHNOLOGY PREPAREDNESS */}
-      <section className="py-24 bg-background border-b border-primary/5">
-        <div className="container mx-auto px-6 md:px-12">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center justify-center p-3 rounded-full bg-accent/10 mb-6">
-              <FiCpu className="text-accent text-3xl" />
-            </div>
-            <span className="text-accent text-xs font-black uppercase tracking-[0.4em] mb-4 block">Systems Preparedness</span>
-            <h2 className="text-3xl md:text-4xl font-headline text-primary mb-6">Future-Ready Hospitality</h2>
-            <p className="text-base md:text-lg text-primary/80 font-body leading-relaxed max-w-2xl mx-auto font-light">
-              The hospitality technology landscape is evolving rapidly. Operational readiness requires adapting to digital workflows, automation, and intelligent inventory without losing the human core of hospitality. We help hospitality systems prepare for responsible innovation, making technology work for your team, not the other way around.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* 7. INSTITUTIONAL/ABOUT PREVIEW */}
-      <section className="py-24 md:py-32 bg-white">
-        <div className="container mx-auto px-6 md:px-12">
-          <div className="grid lg:grid-cols-12 gap-12 max-w-6xl mx-auto">
-            
-            <div className="lg:col-span-5 flex flex-col justify-center">
-              <span className="text-accent text-xs font-black uppercase tracking-[0.4em] mb-4 block font-bold">About the Institution</span>
-              <h2 className="text-3xl md:text-5xl font-headline text-primary mb-6 leading-tight">Why CPG Exists</h2>
-              <p className="text-primary/85 font-body leading-relaxed mb-8 font-light">
-                We believe hospitality businesses succeed when structural design aligns perfectly with human effort. CPG provides the systems and resources to make consistency normal.
-              </p>
-              <Link 
-                to="/about"
-                className="text-accent font-bold hover:text-primary transition-all inline-flex items-center gap-2 group tracking-widest text-sm uppercase font-black"
-              >
-                Learn About CPG <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-
-            <div className="lg:col-span-7 grid md:grid-cols-3 gap-6">
-              <div className="p-6 bg-background rounded-2xl flex flex-col justify-between">
-                <div>
-                  <span className="text-xs font-bold text-accent mb-4 block">01 / WHO</span>
-                  <h4 className="text-lg font-headline font-bold text-primary mb-3">Who CPG Is</h4>
-                  <p className="text-xs text-primary/75 font-body leading-relaxed font-light">An independent, systems-focused advisory institution built by experienced hospitality professionals.</p>
-                </div>
-              </div>
-
-              <div className="p-6 bg-background rounded-2xl flex flex-col justify-between">
-                <div>
-                  <span className="text-xs font-bold text-accent mb-4 block">02 / WHY</span>
-                  <h4 className="text-lg font-headline font-bold text-primary mb-3">Why We Exist</h4>
-                  <p className="text-xs text-primary/75 font-body leading-relaxed font-light">To eliminate systemic instability in food systems, ensuring profitability and career sustainability.</p>
-                </div>
-              </div>
-
-              <div className="p-6 bg-background rounded-2xl flex flex-col justify-between">
-                <div>
-                  <span className="text-xs font-bold text-accent mb-4 block">03 / HOW</span>
-                  <h4 className="text-lg font-headline font-bold text-primary mb-3">How It Works</h4>
-                  <p className="text-xs text-primary/75 font-body leading-relaxed font-light">We define structural requirements, design operational processes, and support team implementation.</p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* 8. FINAL CTA WITH INTELLIGENT INQUIRY ROUTING */}
-      <section 
-        id="routing-section" 
-        className="relative py-24 md:py-32 flex flex-col items-center justify-center overflow-hidden bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url("${backoffice3}")` }}
-      >
-        <div className="absolute inset-0 bg-primary/90 mix-blend-multiply z-10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/70 to-black/60 z-10" />
-
-        <div className="container mx-auto px-6 md:px-12 relative z-20 w-full max-w-4xl">
-          <div className="text-center mb-12">
-            <span className="text-accent text-xs font-black uppercase tracking-[0.4em] mb-4 block">Inquiry Pathways</span>
-            <h2 className="text-3xl md:text-5xl font-headline text-white mb-6">What brings you to CPG?</h2>
-            <p className="text-white/70 max-w-lg mx-auto font-body text-sm font-light">
-              Select the option below that best describes your inquiry. We will route you directly to the appropriate resource pathway.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 gap-4 mb-8">
-            {routes.map((route) => (
-              <button
-                key={route.id}
-                onClick={() => handleRouteSelection(route.id)}
-                className={`p-6 rounded-2xl border text-left transition-all duration-300 flex flex-col justify-between ${
-                  selectedRoute === route.id
-                    ? 'bg-accent/15 border-accent text-white shadow-lg'
-                    : 'bg-white/5 border-white/10 hover:bg-white/10 text-white/90'
-                }`}
-              >
-                <div>
-                  <h4 className={`font-headline text-lg mb-2 font-bold ${selectedRoute === route.id ? 'text-accent' : 'text-white'}`}>
-                    {route.title}
-                  </h4>
-                  <p className="text-xs text-white/70 font-body leading-relaxed font-light">
-                    {route.description}
-                  </p>
-                </div>
-                <div className="mt-4 flex items-center justify-between">
-                  <span className={`text-[10px] uppercase font-bold tracking-wider ${selectedRoute === route.id ? 'text-accent' : 'text-white/40'}`}>
-                    Select Pathway
-                  </span>
-                  <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${selectedRoute === route.id ? 'border-accent bg-accent' : 'border-white/30'}`}>
-                    {selectedRoute === route.id && <div className="w-2 h-2 rounded-full bg-primary" />}
+              {/* Right Column: Clean Photographic Evidence */}
+              <div className="lg:col-span-5">
+                <div className="rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-white/5 p-2">
+                  <img
+                    src={currentStage.image}
+                    alt={currentStage.title}
+                    className="w-full h-[340px] sm:h-[400px] object-cover object-center rounded-xl"
+                  />
+                  <div className="mt-3 px-2 flex items-center justify-between text-xs text-white/70">
+                    <span className="font-medium text-champagne">{currentStage.title}</span>
+                    <span>{currentStage.timeframe}</span>
                   </div>
                 </div>
-              </button>
-            ))}
+              </div>
+
+            </div>
+
           </div>
 
-          {selectedRoute && (
-            <motion.div 
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/10 text-center flex flex-col sm:flex-row justify-between items-center gap-4"
-            >
-              <div className="text-left">
-                <span className="text-[10px] uppercase tracking-wider text-accent font-bold">Selected Path:</span>
-                <p className="text-white text-sm font-body font-bold">{routes.find(r => r.id === selectedRoute)?.title}</p>
-              </div>
-              <button
-                onClick={executeRoute}
-                className="bg-accent text-primary px-8 py-3 rounded-full font-bold text-sm hover:bg-white hover:text-primary transition-all duration-300 whitespace-nowrap shadow-lg flex items-center gap-2"
-              >
-                {routes.find(r => r.id === selectedRoute)?.actionText} <FiArrowRight />
-              </button>
-            </motion.div>
-          )}
-
-          {!selectedRoute && (
-            <div className="text-center text-white/40 text-xs italic">
-              Please choose a path above to proceed to contact advisory services.
-            </div>
-          )}
         </div>
       </section>
+
+      {/* =========================================================================
+          INTERACTIVE LAUNCH BLUEPRINT EXPLORER
+          An engaging interactive tool demonstrating operational intelligence.
+          ========================================================================= */}
+      <section className="py-20 md:py-28 bg-[#FAF4ED] border-b border-champagne/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
+          
+          <div className="max-w-3xl mx-auto text-center space-y-4 mb-14">
+            <span className="badge-editorial">Launch Scope Estimator</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline text-burgundy">
+              Explore Your Launch Framework
+            </h2>
+            <p className="text-base text-body font-light leading-relaxed">
+              Select your envisioned concept architecture and seating capacity to preview the operational milestones CPG engineers for your venue.
+            </p>
+          </div>
+
+          <div className="max-w-5xl mx-auto bg-white rounded-3xl p-6 sm:p-10 border border-champagne shadow-warm">
+            
+            {/* Selection Controls */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pb-8 border-b border-champagne">
+              
+              {/* Concept Selector */}
+              <div className="space-y-3">
+                <label className="block text-xs font-bold uppercase tracking-wider text-burgundy">
+                  1. Select Concept Architecture
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  {[
+                    { id: 'bistro', label: 'Bistro / Trattoria' },
+                    { id: 'brasserie', label: 'High-Volume Brasserie' },
+                    { id: 'hearth', label: 'Wood-Fired Hearth' }
+                  ].map((c) => (
+                    <button
+                      key={c.id}
+                      type="button"
+                      onClick={() => setSelectedConcept(c.id)}
+                      className={`p-3 rounded-xl text-xs font-semibold text-center transition-all ${
+                        selectedConcept === c.id
+                          ? 'bg-burgundy text-white shadow-sm'
+                          : 'bg-[#FAF4ED] text-espresso hover:bg-champagne/50 border border-champagne/70'
+                      }`}
+                    >
+                      {c.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Seating Capacity Selector */}
+              <div className="space-y-3">
+                <label className="block text-xs font-bold uppercase tracking-wider text-burgundy">
+                  2. Select Dining Room Capacity
+                </label>
+                <div className="grid grid-cols-3 gap-2">
+                  {[
+                    { id: 'intimate', label: '40–60 Seats' },
+                    { id: 'medium', label: '70–110 Seats' },
+                    { id: 'grand', label: '120+ Seats' }
+                  ].map((s) => (
+                    <button
+                      key={s.id}
+                      type="button"
+                      onClick={() => setSelectedScale(s.id)}
+                      className={`p-3 rounded-xl text-xs font-semibold text-center transition-all ${
+                        selectedScale === s.id
+                          ? 'bg-burgundy text-white shadow-sm'
+                          : 'bg-[#FAF4ED] text-espresso hover:bg-champagne/50 border border-champagne/70'
+                      }`}
+                    >
+                      {s.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+            </div>
+
+            {/* Dynamic Results Display */}
+            <div className="pt-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                
+                <div className="bg-[#FAF4ED] p-5 rounded-2xl border border-champagne">
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-muted block mb-1">
+                    Concept Profile
+                  </span>
+                  <span className="font-headline font-bold text-base text-burgundy block">
+                    {activeEstimator.name}
+                  </span>
+                </div>
+
+                <div className="bg-[#FAF4ED] p-5 rounded-2xl border border-champagne">
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-muted block mb-1">
+                    Target Prime Cost
+                  </span>
+                  <span className="font-headline font-bold text-2xl text-rose block">
+                    {activeEstimator.targetPrime}
+                  </span>
+                  <span className="text-[11px] text-muted font-light">Food + Beverage + Labor</span>
+                </div>
+
+                <div className="bg-[#FAF4ED] p-5 rounded-2xl border border-champagne">
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-muted block mb-1">
+                    Estimated Timeline
+                  </span>
+                  <span className="font-headline font-bold text-2xl text-burgundy block">
+                    {activeEstimator.timelineEst}
+                  </span>
+                  <span className="text-[11px] text-muted font-light">Concept to First Service</span>
+                </div>
+
+                <div className="bg-[#FAF4ED] p-5 rounded-2xl border border-champagne">
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-muted block mb-1">
+                    Workforce Sizing
+                  </span>
+                  <span className="font-headline font-bold text-2xl text-burgundy block">
+                    {activeEstimator.staffEst}
+                  </span>
+                  <span className="text-[11px] text-muted font-light">FOH &amp; BOH Core Brigade</span>
+                </div>
+
+              </div>
+
+              <div className="mt-6 p-5 rounded-2xl bg-[#FFF8F2] border border-gold/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <span className="text-xs font-bold text-burgundy block uppercase tracking-wide">
+                    Station Geometry &amp; Pacing Protocol:
+                  </span>
+                  <p className="text-xs sm:text-sm text-body font-light">
+                    {activeEstimator.stations} · {activeEstimator.pacing}
+                  </p>
+                </div>
+                <Link
+                  to="/contact?interest=CPG Opening Doors"
+                  className="btn-primary text-xs py-3 px-6 whitespace-nowrap self-start sm:self-auto"
+                >
+                  <span>Build This Operation With Us</span>
+                  <FiArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* =========================================================================
+          SECTION: COMPLETE CPG ADVISORY CAPABILITIES (MAIN CONTEXT)
+          ========================================================================= */}
+      <section id="services" className="py-20 md:py-32 bg-[#FFF8F2] relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
+          
+          <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
+            <span className="badge-editorial">Comprehensive Capabilities</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline text-burgundy">
+              Our Advisory Practice
+            </h2>
+            <p className="text-base sm:text-lg text-body font-light leading-relaxed">
+              Designed for independent operators, executive chefs, and growing hospitality groups across the entire restaurant lifecycle.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            {/* Service 1: CPG Opening Doors (New Launch Advisory) */}
+            <div className="bg-white rounded-3xl p-8 border-2 border-rose/30 shadow-warm flex flex-col justify-between hover:shadow-warm-lg transition-all duration-300 relative">
+              <div className="space-y-5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-rose bg-rose/10 px-3 py-1 rounded-full">
+                    New Flagship Service
+                  </span>
+                  <FiCompass className="w-5 h-5 text-rose" />
+                </div>
+                <h3 className="text-2xl font-headline font-semibold text-burgundy">
+                  CPG Opening Doors
+                </h3>
+                <span className="text-xs font-semibold uppercase tracking-wider text-muted block -mt-2">
+                  Restaurant Launch Advisory
+                </span>
+                <p className="text-sm text-body font-light leading-relaxed">
+                  Turnkey operational guidance for launching new restaurants. We partner with you through feasibility, kitchen line geometry, vendor negotiations, SOP development, and opening-night execution.
+                </p>
+                <div className="pt-2 space-y-2 text-xs text-espresso/80 font-light border-t border-champagne/60">
+                  <p className="flex items-center gap-2">
+                    <FiCheck className="w-3.5 h-3.5 text-rose" />
+                    <span>Concept modeling & financial pro-forma</span>
+                  </p>
+                  <p className="flex items-center gap-2">
+                    <FiCheck className="w-3.5 h-3.5 text-rose" />
+                    <span>Kitchen line geometry & station flow</span>
+                  </p>
+                  <p className="flex items-center gap-2">
+                    <FiCheck className="w-3.5 h-3.5 text-rose" />
+                    <span>On-site opening week floor command</span>
+                  </p>
+                </div>
+              </div>
+              <div className="pt-6 mt-6 border-t border-champagne/60 flex items-center justify-between">
+                <Link
+                  to="/services/opening-doors"
+                  className="text-xs font-semibold uppercase tracking-wider text-rose flex items-center gap-1.5 hover:text-burgundy transition-colors"
+                >
+                  <span>Explore Opening Doors</span>
+                  <FiArrowRight className="w-3.5 h-3.5" />
+                </Link>
+                <Link
+                  to="/contact?interest=CPG Opening Doors"
+                  className="text-xs text-muted hover:text-rose transition-colors"
+                >
+                  Inquire &rarr;
+                </Link>
+              </div>
+            </div>
+
+            {/* Service 2: Restaurant Tune-Up */}
+            <div className="bg-white rounded-3xl p-8 border border-champagne shadow-warm-sm flex flex-col justify-between hover:shadow-warm transition-all duration-300">
+              <div className="space-y-5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-burgundy bg-champagne/60 px-3 py-1 rounded-full">
+                    Active Operations
+                  </span>
+                  <FiActivity className="w-5 h-5 text-gold" />
+                </div>
+                <h3 className="text-2xl font-headline font-semibold text-burgundy">
+                  Restaurant Tune-Up
+                </h3>
+                <span className="text-xs font-semibold uppercase tracking-wider text-muted block -mt-2">
+                  Operational Diagnostic & Margin Recovery
+                </span>
+                <p className="text-sm text-body font-light leading-relaxed">
+                  A high-impact operational diagnostic for active dining rooms. We pinpoint margin leaks, labor scheduling misalignment, and kitchen bottlenecks to restore profitability and team flow.
+                </p>
+                <div className="pt-2 space-y-2 text-xs text-espresso/80 font-light border-t border-champagne/60">
+                  <p className="flex items-center gap-2">
+                    <FiCheck className="w-3.5 h-3.5 text-gold" />
+                    <span>Controllable cost & prime margin audit</span>
+                  </p>
+                  <p className="flex items-center gap-2">
+                    <FiCheck className="w-3.5 h-3.5 text-gold" />
+                    <span>Labor deployment & shift balance</span>
+                  </p>
+                  <p className="flex items-center gap-2">
+                    <FiCheck className="w-3.5 h-3.5 text-gold" />
+                    <span>Actionable 60-day operational roadmap</span>
+                  </p>
+                </div>
+              </div>
+              <div className="pt-6 mt-6 border-t border-champagne/60 flex items-center justify-between">
+                <Link
+                  to="/services/restaurant-tune-up"
+                  className="text-xs font-semibold uppercase tracking-wider text-burgundy flex items-center gap-1.5 hover:text-rose transition-colors"
+                >
+                  <span>Explore Tune-Up</span>
+                  <FiArrowRight className="w-3.5 h-3.5" />
+                </Link>
+                <Link
+                  to="/contact?interest=Restaurant Tune-Up"
+                  className="text-xs text-muted hover:text-rose transition-colors"
+                >
+                  Request Audit &rarr;
+                </Link>
+              </div>
+            </div>
+
+            {/* Service 3: CPG Backstage */}
+            <div className="bg-white rounded-3xl p-8 border border-champagne shadow-warm-sm flex flex-col justify-between hover:shadow-warm transition-all duration-300">
+              <div className="space-y-5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-burgundy bg-champagne/60 px-3 py-1 rounded-full">
+                    Infrastructure
+                  </span>
+                  <FiLayers className="w-5 h-5 text-gold" />
+                </div>
+                <h3 className="text-2xl font-headline font-semibold text-burgundy">
+                  CPG Backstage
+                </h3>
+                <span className="text-xs font-semibold uppercase tracking-wider text-muted block -mt-2">
+                  Institutional SOPs & Management Systems
+                </span>
+                <p className="text-sm text-body font-light leading-relaxed">
+                  Institutional systems architecture designed for restaurant owners who want repeatable back-office clarity. We establish SOPs, financial reporting, and inventory par controls.
+                </p>
+                <div className="pt-2 space-y-2 text-xs text-espresso/80 font-light border-t border-champagne/60">
+                  <p className="flex items-center gap-2">
+                    <FiCheck className="w-3.5 h-3.5 text-gold" />
+                    <span>Custom Master Standard Operating Procedures</span>
+                  </p>
+                  <p className="flex items-center gap-2">
+                    <FiCheck className="w-3.5 h-3.5 text-gold" />
+                    <span>Cost-of-goods & purchasing tracking sheets</span>
+                  </p>
+                  <p className="flex items-center gap-2">
+                    <FiCheck className="w-3.5 h-3.5 text-gold" />
+                    <span>Management accountability scorecards</span>
+                  </p>
+                </div>
+              </div>
+              <div className="pt-6 mt-6 border-t border-champagne/60 flex items-center justify-between">
+                <Link
+                  to="/services/cpg-backstage"
+                  className="text-xs font-semibold uppercase tracking-wider text-burgundy flex items-center gap-1.5 hover:text-rose transition-colors"
+                >
+                  <span>Explore Backstage</span>
+                  <FiArrowRight className="w-3.5 h-3.5" />
+                </Link>
+                <Link
+                  to="/contact?interest=CPG Backstage"
+                  className="text-xs text-muted hover:text-rose transition-colors"
+                >
+                  Inquire &rarr;
+                </Link>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* =========================================================================
+          SECTION: CPG KITCHEN & HOSPITALITY LAB (LEARNING & APPLIED INNOVATION)
+          ========================================================================= */}
+      <section className="py-20 md:py-28 bg-white border-y border-champagne/80 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
+          
+          <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
+            <span className="badge-editorial">Education &amp; Innovation</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline text-burgundy">
+              Learning &amp; Applied Research
+            </h2>
+            <p className="text-base sm:text-lg text-body font-light leading-relaxed">
+              Open educational modules and applied technology research for active culinarians and managers—free from paywalls or enrollment fees.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+            
+            {/* CPG Kitchen */}
+            <div className="bg-[#FAF4ED] rounded-3xl p-8 sm:p-10 border border-champagne flex flex-col justify-between">
+              <div className="space-y-6">
+                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-rose">
+                  <FiBookOpen className="w-4 h-4" />
+                  <span>Culinary Standards</span>
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-headline font-semibold text-burgundy">
+                  CPG Kitchen
+                </h3>
+                <p className="text-sm text-body font-light leading-relaxed">
+                  Moving beyond recipe books into true culinary management. CPG Kitchen equips cooks, sous chefs, and kitchen directors with practical tools for food safety architecture, line station ergonomics, recipe yield costing, and team mentorship.
+                </p>
+                <div className="space-y-2.5 text-xs text-espresso/90 font-light">
+                  <div className="p-3 bg-white rounded-xl border border-champagne/70 flex items-center justify-between">
+                    <span>Module 01: Kitchen Systems &amp; Line Geometry</span>
+                    <span className="text-muted font-medium">Core Focus</span>
+                  </div>
+                  <div className="p-3 bg-white rounded-xl border border-champagne/70 flex items-center justify-between">
+                    <span>Module 02: Unit Economics &amp; Yield Calculations</span>
+                    <span className="text-muted font-medium">Core Focus</span>
+                  </div>
+                  <div className="p-3 bg-white rounded-xl border border-champagne/70 flex items-center justify-between">
+                    <span>Module 03: Food Safety &amp; Sanitation Architecture</span>
+                    <span className="text-muted font-medium">Core Focus</span>
+                  </div>
+                </div>
+              </div>
+              <div className="pt-8 mt-6 border-t border-champagne/60 flex items-center justify-between">
+                <Link
+                  to="/learning/cpg-kitchen"
+                  className="btn-secondary"
+                >
+                  <span>Explore Curriculum</span>
+                </Link>
+                <Link
+                  to="/contact?interest=CPG Kitchen"
+                  className="text-xs text-rose font-medium hover:underline"
+                >
+                  Express Interest &rarr;
+                </Link>
+              </div>
+            </div>
+
+            {/* CPG Hospitality Lab */}
+            <div className="bg-[#FAF4ED] rounded-3xl p-8 sm:p-10 border border-champagne flex flex-col justify-between">
+              <div className="space-y-6">
+                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-burgundy">
+                  <FiCpu className="w-4 h-4 text-gold" />
+                  <span>Modern Workflows</span>
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-headline font-semibold text-burgundy">
+                  Hospitality Lab
+                </h3>
+                <p className="text-sm text-body font-light leading-relaxed">
+                  Modern technology moves fast, but without thoughtful execution, it isolates guests and frustrates servers. Hospitality Lab evaluates POS ecosystems, automated inventory pars, and digital workflows that enhance rather than replace human hospitality.
+                </p>
+                <div className="space-y-2.5 text-xs text-espresso/90 font-light">
+                  <div className="p-3 bg-white rounded-xl border border-champagne/70 flex items-center justify-between">
+                    <span>Lab Study 01: Kitchen Display System (KDS) Pacing</span>
+                    <span className="text-muted font-medium">Applied Study</span>
+                  </div>
+                  <div className="p-3 bg-white rounded-xl border border-champagne/70 flex items-center justify-between">
+                    <span>Lab Study 02: Automated Pars &amp; Inventory Replenishment</span>
+                    <span className="text-muted font-medium">Applied Study</span>
+                  </div>
+                  <div className="p-3 bg-white rounded-xl border border-champagne/70 flex items-center justify-between">
+                    <span>Lab Study 03: Human-Centered Guest Touchpoints</span>
+                    <span className="text-muted font-medium">Applied Study</span>
+                  </div>
+                </div>
+              </div>
+              <div className="pt-8 mt-6 border-t border-champagne/60 flex items-center justify-between">
+                <Link
+                  to="/learning/cpg-hospitality-lab"
+                  className="btn-secondary"
+                >
+                  <span>Explore Lab Insights</span>
+                </Link>
+                <Link
+                  to="/contact?interest=CPG Hospitality Lab"
+                  className="text-xs text-rose font-medium hover:underline"
+                >
+                  Express Interest &rarr;
+                </Link>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* =========================================================================
+          CLOSING HEROIC CALL TO ACTION
+          ========================================================================= */}
+      <section className="py-20 md:py-32 bg-[#FFF8F2] text-center relative overflow-hidden">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-10 space-y-8 relative z-10">
+          
+          <span className="badge-editorial">Begin Your Partnership</span>
+
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-headline text-burgundy leading-tight">
+            Ready to build an enduring operation? <br className="hidden sm:inline" />
+            <span className="italic font-light text-rose">Let's discuss your dining room.</span>
+          </h2>
+
+          <p className="text-base sm:text-lg text-body font-light max-w-2xl mx-auto leading-relaxed">
+            Whether you are preparing to open a new restaurant or seeking operational clarity for an active concept, Culinary Provision Group is ready to partner with you.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+            <Link
+              to="/contact"
+              className="btn-primary w-full sm:w-auto"
+            >
+              <span>Consult Our Advisory Team</span>
+              <FiArrowRight className="w-4 h-4" />
+            </Link>
+
+            <Link
+              to="/services/opening-doors"
+              className="btn-white w-full sm:w-auto"
+            >
+              <span>Explore CPG Opening Doors</span>
+            </Link>
+          </div>
+
+          <div className="pt-8 text-xs text-muted flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+            <span>Direct Advisory Retainers</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-gold hidden sm:inline" />
+            <span>Turnkey Launch Architecture</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-gold hidden sm:inline" />
+            <span>Confidential Project Scoping</span>
+          </div>
+
+        </div>
+      </section>
+
     </div>
   );
 };

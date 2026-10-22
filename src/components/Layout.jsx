@@ -1,19 +1,15 @@
 import Navbar from './Navbar';
 import Footer from './Footer';
 import AIChat from './AIChat';
-import { useLocation } from 'react-router-dom';
 
 const Layout = ({ children }) => {
-  const location = useLocation();
-  const isContactPage = location.pathname === '/contact';
-
   return (
-    <div className="min-h-screen flex flex-col">
-      {!isContactPage && <Navbar />}
+    <div className="min-h-screen flex flex-col bg-cream text-espresso selection:bg-rose/15 selection:text-burgundy">
+      <Navbar />
       <main className="flex-grow">
         {children}
       </main>
-      {!isContactPage && <Footer />}
+      <Footer />
       <AIChat />
     </div>
   );

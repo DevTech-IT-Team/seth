@@ -1,11 +1,9 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { 
   FiArrowRight, 
-  FiLayers, 
+  FiCompass, 
   FiActivity, 
-  FiTarget, 
+  FiLayers, 
   FiCheckCircle, 
   FiChevronRight 
 } from 'react-icons/fi';
@@ -13,200 +11,228 @@ import {
 import backOfficeImage from '../assets/backoffice-2.jpg';
 import paperworkImage from '../assets/Paperwork 3.jpg';
 import prepImage from '../assets/Prep 2.jpg';
-import meetingImage1 from '../assets/Meeting 1.jpg';
-import standardsImage from '../assets/Standards 4.jpg';
+import launchPrepImg from '../assets/launch-prep.jpg';
+import backstageImg from '../assets/Backoffice 1.jpg';
 
 const Services = () => {
   return (
-    <div className="flex flex-col bg-background selection:bg-accent/20 overflow-x-hidden">
+    <div className="bg-cream min-h-screen">
       
-      {/* 1. HERO */}
-      <header 
-        className="relative pt-48 pb-32 overflow-hidden bg-primary"
-        style={{ backgroundImage: `url(${backOfficeImage})`, backgroundPosition: 'center', backgroundSize: 'cover' }}
-      >
-        {/* Background Overlay */}
-        <div className="absolute inset-0 bg-primary/85 mix-blend-multiply z-0" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-primary z-0" />
-        
-        <div className="container mx-auto px-6 md:px-12 relative z-10">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-4 mb-6">
-              <span className="w-12 h-[1px] bg-accent"></span>
-              <span className="text-accent text-[10px] uppercase font-black tracking-[0.5em]">CPG Services</span>
-            </div>
-            
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-headline leading-[1.1] text-white mb-8 tracking-tighter">
-              Building the systems <br />
-              <span className="text-accent font-light italic">behind better hospitality businesses.</span>
+      {/* Hero */}
+      <section className="relative pt-16 pb-20 md:pt-24 md:pb-28 overflow-hidden bg-cream border-b border-champagne/60">
+        <div className="max-w-7xl mx-auto px-6 md:px-10">
+          <div className="max-w-3xl space-y-6">
+            <span className="badge-editorial">Business & Launch Advisory</span>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-headline text-burgundy leading-tight">
+              Hospitality Services Built for Operational Longevity.
             </h1>
-            <p className="text-white/80 font-body text-lg md:text-xl font-light leading-relaxed max-w-2xl">
-              We translate operational requirements into clear financial frameworks, workforce training models, and stable management systems.
+            <p className="text-base sm:text-lg text-body font-light leading-relaxed">
+              We translate culinary concepts and dining room ambitions into solid financial models, resilient kitchen architecture, and repeatable back-office systems.
             </p>
           </div>
         </div>
+      </section>
 
-        {/* Curve shape divider */}
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20">
-          <svg className="relative block w-full h-[80px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.83C50.3,115.6,117,117.81,173.19,103,235.15,86.67,263.39,64.25,321.39,56.44Z" fill="#F4F1EA"></path>
-          </svg>
-        </div>
-      </header>
-
-      {/* 2. THE 4 CORE B2B SERVICES */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-6 md:px-12">
+      {/* Services List */}
+      <section className="py-20 md:py-28 bg-white border-b border-champagne/60">
+        <div className="max-w-7xl mx-auto px-6 md:px-10 space-y-16">
           
-          <div className="space-y-16 max-w-6xl mx-auto">
-            {/* Service 01 */}
-            <div className="grid lg:grid-cols-12 gap-8 items-center bg-white p-8 md:p-12 rounded-3xl border border-primary/5 shadow-sm">
-              <div className="lg:col-span-7 space-y-6">
-                <span className="text-accent text-xs font-black uppercase tracking-widest block">01 / Structural Level</span>
-                <h3 className="text-2xl md:text-3xl font-headline text-primary font-bold">Systems Advisory</h3>
-                <p className="text-primary/75 font-body leading-relaxed text-sm md:text-base font-light">
-                  Clarifying how the business functions at its core through operational modeling and refined process design. We map cost structure thresholds and structural constraints.
-                </p>
-                <ul className="grid grid-cols-2 gap-4 text-xs font-body font-bold text-accent">
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent" /> Operational modeling
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent" /> Cost structure analysis
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent" /> Process design
-                  </li>
-                </ul>
+          {/* Service 01: CPG Opening Doors (Flagship) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center bg-cream/40 p-8 sm:p-12 rounded-3xl border border-champagne shadow-warm-sm">
+            <div className="lg:col-span-7 space-y-5">
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-bold uppercase tracking-wider text-rose bg-rose/10 px-3 py-1 rounded-full">
+                  Flagship Offering
+                </span>
+                <span className="text-xs text-muted font-medium">Concept to Opening Day</span>
               </div>
-              <div className="lg:col-span-5 h-[250px] overflow-hidden rounded-2xl">
-                <img src={paperworkImage} alt="Systems Advisory" className="w-full h-full object-cover" />
-              </div>
-            </div>
-
-            {/* Service 02 */}
-            <div className="grid lg:grid-cols-12 gap-8 items-center bg-white p-8 md:p-12 rounded-3xl border border-primary/5 shadow-sm">
-              <div className="lg:col-span-7 space-y-6 lg:order-2">
-                <span className="text-accent text-xs font-black uppercase tracking-widest block">02 / Execution Level</span>
-                <h3 className="text-2xl md:text-3xl font-headline text-primary font-bold">Operational Optimization</h3>
-                <p className="text-primary/75 font-body leading-relaxed text-sm md:text-base font-light">
-                  Improving efficiency and profitability through deep-dive workflow analysis and precise labor alignment models. We align resource allocation with day-to-day demand constraints.
-                </p>
-                <ul className="grid grid-cols-2 gap-4 text-xs font-body font-bold text-accent">
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent" /> Workflow analysis
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent" /> Labor alignment
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent" /> Inventory & cost control
-                  </li>
-                </ul>
-              </div>
-              <div className="lg:col-span-5 h-[250px] overflow-hidden rounded-2xl lg:order-1">
-                <img src={prepImage} alt="Operational Optimization" className="w-full h-full object-cover" />
-              </div>
-            </div>
-
-            {/* Service 03 */}
-            <div className="grid lg:grid-cols-12 gap-8 items-center bg-white p-8 md:p-12 rounded-3xl border border-primary/5 shadow-sm">
-              <div className="lg:col-span-7 space-y-6">
-                <span className="text-accent text-xs font-black uppercase tracking-widest block">03 / Capacity Building</span>
-                <h3 className="text-2xl md:text-3xl font-headline text-primary font-bold">Workforce Development</h3>
-                <p className="text-primary/75 font-body leading-relaxed text-sm md:text-base font-light">
-                  Building internal operational capability through structured training designs, documentation frameworks, and AI-assisted professional course development.
-                </p>
-                <ul className="grid grid-cols-2 gap-4 text-xs font-body font-bold text-accent">
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent" /> Training system design
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent" /> Capability development
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent" /> AI-assisted course design
-                  </li>
-                </ul>
-              </div>
-              <div className="lg:col-span-5 h-[250px] overflow-hidden rounded-2xl">
-                <img src={meetingImage1} alt="Workforce Development" className="w-full h-full object-cover" />
+              <h2 className="text-3xl font-headline font-semibold text-burgundy">
+                CPG Opening Doors
+              </h2>
+              <p className="text-sm sm:text-base text-body font-light leading-relaxed">
+                End-to-end operational advisory for opening a new restaurant. We partner with founders from early feasibility, floorplan layout, and equipment sourcing to backstage systems, team training, and opening-night execution.
+              </p>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-espresso/80 font-medium pt-2">
+                <li className="flex items-center gap-2">
+                  <FiCheckCircle className="w-4 h-4 text-rose shrink-0" />
+                  <span>Feasibility modeling & pro-forma</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <FiCheckCircle className="w-4 h-4 text-rose shrink-0" />
+                  <span>Kitchen line layout & vendor setup</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <FiCheckCircle className="w-4 h-4 text-rose shrink-0" />
+                  <span>Pre-opening staff rehearsals</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <FiCheckCircle className="w-4 h-4 text-rose shrink-0" />
+                  <span>On-site opening week leadership</span>
+                </li>
+              </ul>
+              <div className="pt-4 flex items-center gap-4">
+                <Link
+                  to="/services/opening-doors"
+                  className="btn-primary"
+                >
+                  <span>Explore Opening Doors</span>
+                  <FiArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  to="/contact?interest=CPG Opening Doors"
+                  className="text-xs text-muted hover:text-rose font-medium transition-colors"
+                >
+                  Schedule Consultation &rarr;
+                </Link>
               </div>
             </div>
+            <div className="lg:col-span-5 h-[300px] sm:h-[350px] rounded-2xl overflow-hidden shadow-warm border border-white">
+              <img
+                src={launchPrepImg}
+                alt="CPG Opening Doors restaurant launch"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
 
-            {/* Service 04 */}
-            <div className="grid lg:grid-cols-12 gap-8 items-center bg-white p-8 md:p-12 rounded-3xl border border-primary/5 shadow-sm">
-              <div className="lg:col-span-7 space-y-6 lg:order-2">
-                <span className="text-accent text-xs font-black uppercase tracking-widest block">04 / Systems in Practice</span>
-                <h3 className="text-2xl md:text-3xl font-headline text-primary font-bold">Implementation Support</h3>
-                <p className="text-primary/75 font-body leading-relaxed text-sm md:text-base font-light">
-                  Translating theoretical systems design into active daily operations through hands-on rollout management, metrics integration, and performance tracking.
-                </p>
-                <ul className="grid grid-cols-2 gap-4 text-xs font-body font-bold text-accent">
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent" /> Systems rollout
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent" /> Operational integration
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent" /> Performance tracking
-                  </li>
-                </ul>
+          {/* Service 02: Restaurant Tune-Up */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center bg-cream/40 p-8 sm:p-12 rounded-3xl border border-champagne shadow-warm-sm">
+            <div className="lg:col-span-7 space-y-5 lg:order-2">
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-bold uppercase tracking-wider text-burgundy bg-champagne/70 px-3 py-1 rounded-full">
+                  Operational Optimization
+                </span>
+                <span className="text-xs text-muted font-medium">Existing Dining Operations</span>
               </div>
-              <div className="lg:col-span-5 h-[250px] overflow-hidden rounded-2xl lg:order-1">
-                <img src={standardsImage} alt="Implementation" className="w-full h-full object-cover" />
+              <h2 className="text-3xl font-headline font-semibold text-burgundy">
+                Restaurant Tune-Up
+              </h2>
+              <p className="text-sm sm:text-base text-body font-light leading-relaxed">
+                A rapid 360-degree operational diagnostic designed to fix margin leaks, unbalance in labor scheduling, and kitchen service bottlenecks. We produce an actionable 60-day recovery roadmap.
+              </p>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-espresso/80 font-medium pt-2">
+                <li className="flex items-center gap-2">
+                  <FiCheckCircle className="w-4 h-4 text-gold shrink-0" />
+                  <span>Food waste & recipe yield audit</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <FiCheckCircle className="w-4 h-4 text-gold shrink-0" />
+                  <span>Labor curves & shift scheduling</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <FiCheckCircle className="w-4 h-4 text-gold shrink-0" />
+                  <span>Ticket timing & pass coordination</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <FiCheckCircle className="w-4 h-4 text-gold shrink-0" />
+                  <span>Prime cost margin defense</span>
+                </li>
+              </ul>
+              <div className="pt-4 flex items-center gap-4">
+                <Link
+                  to="/services/restaurant-tune-up"
+                  className="btn-primary"
+                >
+                  <span>Explore Restaurant Tune-Up</span>
+                  <FiArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  to="/contact?interest=Restaurant Tune-Up"
+                  className="text-xs text-muted hover:text-rose font-medium transition-colors"
+                >
+                  Request Audit &rarr;
+                </Link>
               </div>
+            </div>
+            <div className="lg:col-span-5 h-[300px] sm:h-[350px] rounded-2xl overflow-hidden shadow-warm border border-white lg:order-1">
+              <img
+                src={prepImage}
+                alt="Restaurant operational optimization"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+
+          {/* Service 03: CPG Backstage */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center bg-cream/40 p-8 sm:p-12 rounded-3xl border border-champagne shadow-warm-sm">
+            <div className="lg:col-span-7 space-y-5">
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-bold uppercase tracking-wider text-burgundy bg-champagne/70 px-3 py-1 rounded-full">
+                  Systems Infrastructure
+                </span>
+                <span className="text-xs text-muted font-medium">Scalable Documentation</span>
+              </div>
+              <h2 className="text-3xl font-headline font-semibold text-burgundy">
+                CPG Backstage
+              </h2>
+              <p className="text-sm sm:text-base text-body font-light leading-relaxed">
+                Institutional operating manuals, inventory tracking protocols, recipe cards, and manager scorecards that give owners confidence their standards are upheld on every shift.
+              </p>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-espresso/80 font-medium pt-2">
+                <li className="flex items-center gap-2">
+                  <FiCheckCircle className="w-4 h-4 text-gold shrink-0" />
+                  <span>Turnkey Standard Operating Procedures</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <FiCheckCircle className="w-4 h-4 text-gold shrink-0" />
+                  <span>Purveyor pars & weekly waste logs</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <FiCheckCircle className="w-4 h-4 text-gold shrink-0" />
+                  <span>Managerial scorecards & KPI checks</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <FiCheckCircle className="w-4 h-4 text-gold shrink-0" />
+                  <span>Multi-unit expansion readiness</span>
+                </li>
+              </ul>
+              <div className="pt-4 flex items-center gap-4">
+                <Link
+                  to="/services/cpg-backstage"
+                  className="btn-primary"
+                >
+                  <span>Explore CPG Backstage</span>
+                  <FiArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  to="/contact?interest=CPG Backstage"
+                  className="text-xs text-muted hover:text-rose font-medium transition-colors"
+                >
+                  Build Your Backstage &rarr;
+                </Link>
+              </div>
+            </div>
+            <div className="lg:col-span-5 h-[300px] sm:h-[350px] rounded-2xl overflow-hidden shadow-warm border border-white">
+              <img
+                src={backstageImg}
+                alt="CPG Backstage systems"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
 
         </div>
       </section>
 
-      {/* 3. HOW ENGAGEMENT WORKS */}
-      <section className="py-24 bg-white border-y border-primary/5">
-        <div className="container mx-auto px-6 md:px-12">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-accent text-xs font-black uppercase tracking-[0.4em] mb-4 block">Engagement Methodology</span>
-            <h2 className="text-3xl md:text-5xl font-headline text-primary">How Engagement Works</h2>
-            <p className="text-primary/75 font-body text-base mt-4 font-light">
-              We utilize a structured progression framework to ensure capability is successfully transferred.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto">
-            {[
-              { num: '01', title: 'Discovery', desc: 'Deep dive operational audit into current financial thresholds, labor planning systems, and bottlenecks.' },
-              { num: '02', title: 'Architecture', desc: 'Designing customized blueprints, custom standard procedures documentation, and digital tools.' },
-              { num: '03', title: 'Scale', desc: 'Direct rollout support across organization layers, tracking performance metrics against milestones.' },
-              { num: '04', title: 'Continuity', desc: 'Follow-up audits, updated learning modules, and optimization adjustments for structural health.' }
-            ].map((method, idx) => (
-              <div key={idx} className="p-6 bg-background rounded-2xl border border-primary/5 flex flex-col justify-between">
-                <div>
-                  <span className="text-accent font-headline text-3xl font-bold block mb-4">{method.num}</span>
-                  <h4 className="text-lg font-headline font-bold text-primary mb-2">{method.title}</h4>
-                  <p className="text-xs text-primary/75 font-body leading-relaxed font-light">{method.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. CTA */}
-      <section className="py-24 bg-primary text-white text-center relative overflow-hidden">
-        <div className="container mx-auto px-6 md:px-12 relative z-10">
-          <span className="text-accent text-xs font-black uppercase tracking-[0.4em] mb-4 block">Get Started</span>
-          <h2 className="text-3xl md:text-6xl font-headline text-white mb-8">Start with a structured assessment.</h2>
-          <p className="text-white/70 max-w-md mx-auto mb-10 font-body text-sm font-light">
-            Every partnership begins with a thorough 360-degree review of your operational constraints and business performance parameters.
+      {/* Closing CTA */}
+      <section className="py-20 md:py-28 bg-cream text-center">
+        <div className="max-w-3xl mx-auto px-6 md:px-10 space-y-6">
+          <span className="badge-editorial">Start An Advisory Engagement</span>
+          <h2 className="text-3xl sm:text-5xl font-headline text-burgundy leading-tight">
+            Let's discuss what your operation needs.
+          </h2>
+          <p className="text-base text-body font-light max-w-xl mx-auto leading-relaxed">
+            Every engagement begins with an open, confidential conversation about your goals, timelines, and operational structure.
           </p>
-          <Link 
-            to="/contact?reason=business" 
-            className="bg-accent text-primary px-8 py-4 rounded-full font-bold hover:bg-white hover:text-primary transition-all duration-300 shadow-lg inline-flex items-center gap-2"
-          >
-            Start Assessment Engagement <FiArrowRight />
-          </Link>
+          <div className="pt-2">
+            <Link
+              to="/contact"
+              className="btn-primary"
+            >
+              <span>Request Consultation</span>
+              <FiArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
       </section>
 
